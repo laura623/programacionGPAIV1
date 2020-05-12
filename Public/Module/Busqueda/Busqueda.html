@@ -1,0 +1,94 @@
+
+<script src="https://kit.fontawesome.com/d86c9a1724.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="Public/CSS/Busqueda.css">
+
+<div class="wrap">
+    <ul class="tabs">
+        <li><a href="#tab1"><span class="fas fa-search"></span><span class="tab-text">Busqueda</span></a></li>
+        <li><a href="#tab2"><span class="fab fa-searchengin"></span><span class="tab-text">Avanazada</span></a></li>
+    </ul>
+
+    <div class="secciones" id="frmBusqueda">
+        <article id="tab1" >
+            <h1>Busqueda</h1>
+            <input type="text" v-model="valor" v-on:keyup="buscarRegistrarUsuario" placeholder="Ingrese el nombre" style=" width: 100%;" id="">
+            <div class="Rows" v-for="usuario in RegistrarUsuarioes" :key="usuario.id_perfil">
+        
+                <div class="blog-post">
+        
+                    <div class="blog-post__img">
+                        <img src="Public/img/avatar.svg" alt="Foto de perfil">
+                    </div>
+                    <div class="blog-post__info">
+                        <div class="blog-post__date">
+            
+                            <span>{{ usuario.fecha_de_nacimiento }}</span>
+            
+                        </div>
+                        <h1 class="blog-post__title">{{ usuario.nombres_completos }}</h1>
+                        <p class="blog-post__text">
+                            {{usuario.genero}} <br>
+                            {{usuario.estatus}}
+                        </p>
+            
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </article>
+        <article id="tab2">
+            <h1>Busqueda Avanzada</h1>
+            <input type="text" v-model="valorAvanzado" v-on:keyup="buscarRegistrarUsuarioAvanzado" placeholder="Busque por nombre o estatus" style=" width: 100%;" id="">
+            <div class="Rows" v-for="usuario in RegistrarUsuarioAvanzado" :key="usuario.id_perfil">
+        
+                <div class="blog-post">
+        
+                    <div class="blog-post__img">
+                        <img src="Public/img/avatar.svg" alt="Foto de perfil">
+                    </div>
+                    <div class="blog-post__info">
+                        <div class="blog-post__date">
+            
+                            <span>{{ usuario.fecha_de_nacimiento }}</span>
+            
+                        </div>
+                        <h1 class="blog-post__title">{{ usuario.nombres_completos }}</h1>
+                        <p class="blog-post__text">
+                            {{usuario.genero}} <br>
+                            {{usuario.estatus}}
+                        </p>
+            
+                    </div>
+                    
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="Public/Module/Busqueda/Busqueda.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $('ul.tabs li a:first').addClass('active');
+        $('.secciones article').hide();
+        $('.secciones article:first').show();
+
+        $('ul.tabs li a').click(function(){
+            $('ul.tabs li a').removeClass('active');
+            $(this).addClass('active');
+            $('.secciones article').hide();
+
+            var activeTab = $(this).attr('href');
+            $(activeTab).show();
+            return false;
+        });
+        
+    })
+</script>

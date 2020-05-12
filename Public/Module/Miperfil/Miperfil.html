@@ -1,0 +1,284 @@
+<div class="main">
+
+    <!--cards -->
+
+    <div class="card">
+
+        <div class="image">
+            <img src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg">
+        </div>
+
+        <div class="title">
+            <h1>Mi Perfil</h1>
+        </div>
+
+        <div class="des">
+            <button id="AbrirModal" class="Modal" data-toggle="modal" data-target="#exampleModalCenter">Ingresar</button>
+        </div>
+        
+    </div>
+    <!--cards -->
+
+    <div class="card">
+
+        <div class="image">
+            <img src="https://st2.depositphotos.com/5671012/8961/v/600/depositphotos_89614770-stock-illustration-synchronize-user-icon-update-icon.jpg">
+        </div>
+
+        <div class="title">
+            <h1>Actualizacion de perfil</h1>
+        </div>
+        
+        <div class="des">
+            <button onclick="ActualizarPerfil()">Ingresar</button>
+        </div>
+    </div>
+
+    <!--cards -->
+
+    <div class="card">
+
+        <div class="image">
+            <img src="https://image.freepik.com/vector-gratis/ilustracion-busqueda-todo-mundo_53876-5870.jpg">
+        </div>
+
+        <div class="title">
+            <h1>Busqueda Personalizada</h1>
+        </div>
+        
+        <div class="des">
+            <button onclick="Buscar()">Ingresar</button>
+        </div>
+    </div>
+
+    <!--cards -->
+
+    <div class="card">
+
+        <div class="image">
+            <img src="https://img2.freepng.es/20180508/uoq/kisspng-web-service-cloud-computing-computer-icons-represe-5af1f4e0093cb7.1991223315258063040379.jpg">
+        </div>
+
+        <div class="title">
+            <h1>Agregar nueva solicitud</h1>
+        </div>
+        
+        <div class="des">
+            <button onclick="Solicitud()">Ingresar</button>
+        </div>
+    </div>
+
+    <!--cards -->
+
+    <div class="card">
+
+        <div class="image">
+            <img src="https://aguascalientes.tecnm.mx//wp-content/uploads/2017/02/unnamed.png">
+        </div>
+
+        <div class="title">
+            <h1>Generar Reporte</h1>
+        </div>
+        
+        <div class="des">
+            <button onclick="Pdf()">Ingresar</button>
+        </div>
+    </div>
+
+    <!--cards -->
+
+    <div class="card">
+
+        <div class="image">
+            <img src="https://campanario.es/wp-content/uploads/2017/02/buzon-sugerencias.png">
+        </div>
+
+        <div class="title">
+            <h1>Buzon de Sugerencias</h1>
+        </div>
+        
+        <div class="des">
+            <button onclick="Contacto()">Ingresar</button>
+        </div>
+    </div>
+
+    <!--cards -->
+
+    <div class="card">
+
+        <div class="image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQmTErPS_yeej4CtFYfNCC8gq_7fTd5ly9sC7i5jspKGUBQlEQc&usqp=CAU">
+        </div>
+
+        <div class="title">
+            <h1>Material de apoyo</h1>
+        </div>
+        
+        <div class="des">
+            <button>Ingresar</button>
+        </div>
+    </div>
+
+</div>
+
+</section>
+
+<div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content" id="ContenidoModal">
+        <div class="modal-header" >
+            <h5 class="modal-title" id="exampleModalCenterTitle" style="width: 100%;">
+                <div class="login-content" style="width: 100%;">
+                    <div id="frmLogin"  style="width: 100%;">
+                      <img src="Public/img/avatar.svg">
+                      <h2>Mi perfil</h2>
+                    </div>
+                  
+                </div>
+            </h5>
+            <button type="button" id="CerrarModal" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+        
+              <div class="login-content" style="justify-items: center; justify-content: center; width: 100%;">
+                  <form v-on:submit.prevent="guardarRegistrarUsuario" method="get" id="frmRegistrarUsuario" data-accion="nuevo" style="width: 100%;">
+                      <div class="row p-2">
+                          <div class="col-6">
+                              <div class="input-div one focus" style="width:100%">
+                                  <div class="i">
+                                          <i class="fas fa-user"></i>
+                                  </div>
+                                  <div class="div">
+                                          <h5>Nombre</h5>
+                                          <input type="text" required v-model="RegistrarUsuario.Nombre" class="input" id="Usuario">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div class="input-div one focus" style="margin-top: 0px; width: 100%;">
+                                  <div class="i">
+                                          <i class="fas fa-user"></i>
+                                  </div>
+                                  <div class="div">
+                                          <h5>Apellido</h5>
+                                          <input type="text" required v-model="RegistrarUsuario.Apellido" class="input" id="Usuario">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row p-2">
+                          <div class="col-6">
+                              <div class="input-div one focus" style="width:100%">
+                                  <div class="i">
+                                      <i class="fas fa-venus-mars"></i>
+                                  </div>
+                                  <div class="div">
+                                      <v-select id="Genero" class="style-chooser" placeholder="Genero" v-model="RegistrarUsuario.Genero" :options="Genero"></v-select>
+                                  </div>
+                              </div>
+                              
+                          </div>
+                          <div class="col-6">
+                              <div class="input-div one focus" style="width:100%">
+                                  <div class="i">
+                                          <i class="fas fa-user"></i>
+                                  </div>
+                                  <div class="div">
+                                      <v-select class="style-chooser" placeholder="Estatus" v-model="RegistrarUsuario.Estatus" :options="Status"></v-select>
+                                  </div>
+                              </div>
+                              
+                          </div>
+                      </div>
+                      <div class="row p-2">
+                          <div class="col-6">
+                              <div class="input-div one focus" style="width:100%">
+                                  <div class="i">
+                                      <i class="far fa-calendar-alt"></i>
+                                  </div>
+                                  <div class="div">
+                                          <input type="date" required v-model="RegistrarUsuario.Fecha" class="input" id="Usuario">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div class="input-div one focus" style="margin-top: 0px; width: 100%;">
+                                  <div class="i">
+                                          <i class="fas fa-user"></i>
+                                  </div>
+                                  <div class="div">
+                                          <h5>DUI</h5>
+                                          <input type="text" required v-model="RegistrarUsuario.DUI" class="input" id="Usuario">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row p-2">
+                          <div class="col-6">
+                              <div class="input-div one focus" style="width:100%">
+                                  <div class="i">
+                                          <i class="fas fa-user"></i>
+                                  </div>
+                                  <div class="div">
+                                          <h5>NIT</h5>
+                                          <input type="text" required v-model="RegistrarUsuario.NIT" class="input" id="Usuario">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div class="input-div one focus" style="margin-top: 0px; width: 100%;">
+                                  <div class="i">
+                                          <i class="fas fa-user"></i>
+                                  </div>
+                                  <div class="div">
+                                          <h5>Usuario</h5>
+                                          <input type="text" required v-model="RegistrarUsuario.Usuario" class="input" id="Usuario">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row p-2">
+                          <div class="col-6">
+                              <div class="input-div pass focus" style="width:100%">
+                                  <div class="i">
+                                      <i class="fas fa-lock"></i>
+                                  </div>
+                                  <div class="div">
+                                          <h5>Password</h5>
+                                          <input type="password" required v-model="RegistrarUsuario.Password" class="input" id="Password">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row p-2">
+                          <div class="col-12 text-center">
+                              <div class="alert alert-success" role="alert">
+                                  {{ RegistrarUsuario.msg }}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row p-2"> 
+                          <div class="col-12 text-center">
+                              <input type="submit" class="btn btn-success text-white" style="width: 100%;" value="Registrar">
+                              
+                          </div>
+                      </div>
+        
+                  </form>
+              </div>
+          
+          </div>
+          <div class="modal-footer">
+              &copy; Code Master
+          </div>
+        
+          
+          <script src="Public/Module/Miperfil/MiPerfil.js"></script>
+          <script src="Public/JS/Animacion.js"></script>
+          
+      </div>
+    </div>
+  </div>

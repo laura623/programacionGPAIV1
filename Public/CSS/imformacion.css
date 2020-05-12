@@ -1,0 +1,23 @@
+
+
+ 
+.wrapp {
+	max-width: 1000px;
+	width:80%;
+	margin:auto;
+	overflow: hidden;
+}
+
+h1{
+	margin-left: 50px;
+}
+ 
+ 
+.articulo {
+	float: left;
+	width: 90%;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-left: 50px;
+	padding:0px 20px 20px 0px;
+}
+

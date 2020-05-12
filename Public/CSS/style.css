@@ -1,0 +1,336 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background: rgba(91, 191, 224, 1);
+    font-family: sans-serif;
+  }
+  .v-select{
+    background: #fff;
+    border-radius: 10px;
+  }
+  
+  .container{
+    position: relative;
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 20px;
+  }
+  
+  .container .card{
+    position: relative;
+    height: 250px;
+    background: #fff;
+    display: flex;
+    width: 45%;
+    margin: 30px 0;
+  }
+  
+  .container .card .imgBx{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+  }
+  
+  .container .card:hover .imgBx{
+    width: 150px;
+    height: 150;
+    left: -75px;
+    top: calc(50% - 75px);
+    transition: 0.5s ease-in-out;
+  }
+  
+  .container .card .imgBx:before{
+    
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 6em;
+    color: rgba(255, 255, 255, .05);
+    font-weight: 700;
+  }
+  
+  .container .card .imgBx img{
+    max-width: 100%;
+    transition: 0.5s ease-in-out;
+  }
+  
+  .container .card:hover .imgBx img{
+    max-width: 75%;
+  }
+  
+  .container .card .content{
+    position: absolute;
+    right: 0;
+    width: calc(100% - 75px);
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container .card .content h3{
+    margin-bottom: 5px;
+    font-size: 24px;
+  }
+  
+  .container .card .content a{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: #333;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  
+  
+  
+  #Enlaces{
+    width: 200px;
+    height: 300px;
+  }
+  
+  .landing {
+    background: rgba(91, 191, 224, 1);
+    display: grid;
+    justify-content: center;
+  }
+  
+  .landing #Banner {
+    border-radius: 10px;
+    margin-top: 5px;
+    width: 100%;
+    max-height: 60%;
+    
+  }
+  
+  .Container{
+    float: left;
+    position: relative;
+  }
+  
+  .landing > .Contenedor{
+    margin-top: -20%  ;
+    display: flex;
+  }
+  
+  
+  #Mostrar-Contenido{
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    background-color: white;
+    transform-style: preserve-3d;
+    width: 800px;
+    display: flex;
+  }
+  
+  .landing > ul{
+    margin-top: -28%;
+  }
+  
+  .landing > ul > li:hover{
+    cursor: pointer;
+    background-color: rgba(91, 191, 224, 1);
+  }
+  
+  @media (max-width: 992px){
+    .line {
+      width: 30px;
+      height: 3px;
+      background: white;
+      margin: 5px;
+    }
+    nav {
+      position: relative;
+    }
+  
+    .hamburger {
+      position: absolute;
+      cursor: pointer;
+      right: 5%;
+      top: 50%;
+      transform: translate(-5%, -50%);
+      z-index: 2;
+    }
+  
+    .nav-links {
+      position: fixed;
+      background: #5b78c7;
+      height: 100vh;
+      width: 100%;
+      flex-direction: column;
+      clip-path: circle(100px at 90% -10%);
+      -webkit-clip-path: circle(100px at 90% -10%);
+      transition: all 1s ease-out;
+      pointer-events: none;
+    }
+    .nav-links.open {
+      clip-path: circle(1000px at 90% -10%);
+      -webkit-clip-path: circle(1000px at 90% -10%);
+      pointer-events: all;
+    }
+    .landing > .Contenedor{
+      justify-content: center;
+      width: 100%;
+      margin-top: -10%  ;
+      display: grid;
+    }
+    #Mostrar-Contenido{
+      border-radius: 20px;
+      margin-bottom: 20px;
+      margin-left: 5px;
+      background-color: white;
+      transform-style: preserve-3d;
+      width: 100%;
+    }
+  
+    #Enlaces{
+      width: 100%;
+    }
+  
+    .landing {
+      flex-direction: column;
+    }
+    .nav-links li {
+      opacity: 0;
+    }
+    .nav-links li a {
+      font-size: 25px;
+    }
+    .nav-links li:nth-child(1) {
+      transition: all 0.5s ease 0.2s;
+    }
+    .nav-links li:nth-child(2) {
+      transition: all 0.5s ease 0.4s;
+    }
+    .nav-links li:nth-child(3) {
+      transition: all 0.5s ease 0.6s;
+    }
+    li .fade {
+      opacity: 1;
+    }
+    .container{
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container .card{
+      width: 400px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .line {
+      width: 30px;
+      height: 3px;
+      background: white;
+      margin: 5px;
+    }
+    nav {
+      position: relative;
+    }
+  
+    .hamburger {
+      position: absolute;
+      cursor: pointer;
+      right: 5%;
+      top: 50%;
+      transform: translate(-5%, -50%);
+      z-index: 2;
+    }
+  
+    .nav-links {
+      position: fixed;
+      background: #5b78c7;
+      height: 100vh;
+      width: 100%;
+      flex-direction: column;
+      clip-path: circle(100px at 90% -10%);
+      -webkit-clip-path: circle(100px at 90% -10%);
+      transition: all 1s ease-out;
+      pointer-events: none;
+    }
+    .nav-links.open {
+      clip-path: circle(1000px at 90% -10%);
+      -webkit-clip-path: circle(1000px at 90% -10%);
+      pointer-events: all;
+    }
+    .landing > .Contenedor{
+      justify-content: center;
+      width: 100%;
+      margin-top: -10%  ;
+      display: grid;
+    }
+    #Mostrar-Contenido{
+      border-radius: 20px;
+      margin-bottom: 20px;
+      margin-left: 5px;
+      background-color: white;
+      transform-style: preserve-3d;
+      width: 100%;
+    }
+  
+    .container .card{
+      max-width: 300px;
+      flex-direction: column;
+      height: auto;
+    } 
+  
+    .container .card .imgBx {
+      position: relative;
+    }
+  
+    .container .card .imgBx,
+    .container .card:hover .imgBx{
+      max-width: 100%;
+    }
+  
+    .container .card .content{
+      position: relative;
+      width: 100%;
+    }
+  
+    #Enlaces{
+      width: 100%;
+    }
+  
+    .landing {
+      flex-direction: column;
+    }
+    .nav-links li {
+      opacity: 0;
+    }
+    .nav-links li a {
+      font-size: 25px;
+    }
+    .nav-links li:nth-child(1) {
+      transition: all 0.5s ease 0.2s;
+    }
+    .nav-links li:nth-child(2) {
+      transition: all 0.5s ease 0.4s;
+    }
+    .nav-links li:nth-child(3) {
+      transition: all 0.5s ease 0.6s;
+    }
+    li.fade {
+      opacity: 1;
+    }
+  }

@@ -1,0 +1,254 @@
+<link rel="stylesheet" href="Public/CSS/Perfil.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
+
+<div class="Formularios">
+    <div class="card bg-light mb-3" style="width: 28rem;">
+        <div class="card-header">INFORMACION PERSONAL</div>
+        <div class="card-body">
+
+            <form method="POST" v-on:submit.prevent="Guardar" id="frmPersonal" style="width: 100%;">
+                <div class="row p-2">
+                    <div class="col-">
+                        Correo
+                    </div>
+                    <div class="col-4">
+                        <input type="text" v-model="Informacion.Correo" placeholder="example@codemaster.com" >
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Departamento
+                    </div>
+                    <div class="col-6">
+                        <v-select style="width: 100%;" v-model="Informacion.Departamento" class="style-chooser" placeholder="Departamento" :options="Departamento.Departamento"></v-select>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Municipio
+                    </div>
+                    <div class="col-6">
+                        <v-select style="width: 100%;" v-model="Informacion.Municipio" class="style-chooser" placeholder="Municipio" :options="Municipio.Municipio"></v-select>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Direccion
+                    </div>
+                    <div class="col-4">
+                        <input type="text" v-model="Informacion.Direccion" placeholder="Santa Ana" >
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Telefono
+                    </div>
+                    <div class="col-4">
+                        <input type="text" v-model="Informacion.Telefono" placeholder="9999-6666" >
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Tipo Telefono
+                    </div>
+                    <div class="col-6">
+                        <v-select style="width: 100%;" v-model="Informacion.TipoTelefono" class="style-chooser" placeholder="Tipo de Telefono" :options="TipoTelefono.Tipo"></v-select>
+                    </div>
+                </div>
+                <div class="row p-2"> 
+                    <div class="col-12 text-center">
+                        <input type="submit" class="btn btn-success text-white" value="Registrar">
+                        
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+
+    <div class="card bg-light mb-3" style="width: 28rem;">
+        <div class="card-header">INFORMACION ACADEMICA</div>
+        <div class="card-body">
+            <form method="get" v-on:submit.prevent="Guardar" id="frmAcademica" >
+                <div class="row p-2">
+                    <div class="col-">
+                        Universidad
+                    </div>
+                    <div class="col-6">
+                        <v-select v-model="Informacion.Universidad" style="width: 100%;" class="style-chooser" placeholder="Universidad" :options="Universidad.Universidad"></v-select>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Carrera
+                    </div>
+                    <div class="col-6">
+                        <v-select v-model="Informacion.Carrera" style="width: 100%;" class="style-chooser" placeholder="Carrera" :options="Carrera.Carrera"></v-select>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Titulo Universitario
+                    </div>
+                    <div class="col-4">
+                        <div id="imgInp">
+                        </div>
+                       <input onchange="readImage(this)" type="file" name="image" accept="image/*" id="blah">
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        CUM
+                    </div>
+                    <div class="col-4">
+                        <input v-model="Informacion.CUM" type="number" placeholder="100" >
+                    </div>
+                </div>
+                <div class="row p-2"> 
+                    <div class="col-12 text-center">
+                        <input type="submit" class="btn btn-success text-white" value="Registrar">
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card bg-light mb-3" style="width: 28rem;">
+        <div class="card-header">HISTORIAL DE EMPLEADO</div>
+        <div class="card-body">
+          <form method="get" id="frmHistorial" v-on:submit.prevent="Guardar">
+            <div class="row p-2">
+                <div class="col-">
+                    EMPRESA
+                </div>
+                <div class="col-4">
+                    <input type="text" v-model="Informacion.Empresa" placeholder="Mined" >
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-">
+                    PUESTO
+                </div>
+                <div class="col-4">
+                    <v-select style="width: 100%;" v-model="Informacion.Puesto" class="style-chooser" placeholder="Puesto" :options="Puesto.Puesto"></v-select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-">
+                    INICIO
+                </div>
+                <div class="col-4">
+                    <input type="date" v-model="Informacion.Inicio">
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-">
+                    FINALIZACION
+                </div>
+                <div class="col-4">
+                    <input type="date" v-model="Informacion.Fin">
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-">
+                    TELEFONO
+                </div>
+                <div class="col-4">
+                    <input type="text" v-model="Informacion.Telefono" placeholder="6666-9999" >
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-">
+                    DIRECCION
+                </div>
+                <div class="col-4">
+                    <input type="text" v-model="Informacion.Direccion" placeholder="Santa Ana" >
+                </div>
+            </div>
+            <div class="row p-2"> 
+                <div class="col-12 text-center">
+                    <input type="button" class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModalCenter" value="Buscar">
+                    <input type="submit" class="btn btn-success text-white" value="Registrar">
+                    
+                </div>
+            </div>
+          </form>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">HISTORIAL DE EMPLEO</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" id="frmHistorialBusqueda" style="width: 100%;">
+            <div class="card text-white bg-primary mb-3" style="width: 90%;">
+                <div class="car-header">
+                    BUSQUEDA DE HISTORIAL
+                </div>
+                <div class="card-body">
+                    <table id="tbl-buscar-RegistrarUsuario" class="table-striped table-primarytable-hover">
+                        <thead>
+                            <tr>
+                                <th colspan="5">
+                                    <input type="text" v-model="valor" v-on:keyup="Datos" placeholder="Nombre del cliente" class="form-control">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Puesto</th>
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                                <th colspan="2"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="Historial in Informacion" :key="Historial.id_historial">
+                                <td>{{ Historial.Empresa }}</td>
+                                <td>{{ Historial.Puesto }}</td>
+                                <td>{{ Historial.Inicio }}</td>
+                                <td>{{ Historial.Fin }}</td>
+                                <td>
+                                    <input type="button" class="btn btn-outline-danger text-white" value="Delete">
+                                    <input v-on:click="Modificar(Historial)" data-dismiss="modal" type="button" class="btn btn-outline-warning text-white" value="Update">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+        
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="Public/Module/Perfil/Perfil.js"></script>
+<script src="https://unpkg.com/vue-select@3.0.0"></script>
+
+<script>
+
+    function readImage(input) {
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("imgInp").innerHTML = "<img id='Blob' src='"+e.target.result+"' width='150px' alt='Titulo'>";
+            }
+            reader.readAsDataURL(input.files[0]);
+            
+        }
+    }
+    
+</script>
