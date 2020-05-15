@@ -13,8 +13,7 @@ let appInformacionPersonal = new Vue({
             TipoTelefono : ''
         },
         Departamento: [],
-        Municipio: [],
-        TipoTelefono: []
+        Municipio: []
     },
     methods:{
 
@@ -24,10 +23,11 @@ let appInformacionPersonal = new Vue({
                 
                 appInformacionPersonal.Departamento = resp.Departamento;
                 appInformacionPersonal.Municipio = resp.Municipio;
-                appInformacionPersonal.TipoTelefono = resp.TipoTelefono;
             });
         },
         Guardar: function () {
+
+            this.Informacion.TipoTelefono = '1';
 
             this.Informacion.IdPerfil = sessionStorage.getItem('id');
             for (let index = 0; index < this.Departamento.Departamento.length; index++) {
@@ -45,15 +45,6 @@ let appInformacionPersonal = new Vue({
                 if (this.Municipio.Municipio[index] == this.Informacion.Municipio) {
                     this.Informacion.Municipio = this.Municipio.MunicipioID[index];
                     
-                    
-                }
-                
-            }
-
-            for (let index = 0; index < this.TipoTelefono.Tipo.length; index++) {
-                
-                if (this.TipoTelefono.Tipo[index] == this.Informacion.TipoTelefono) {
-                    this.Informacion.TipoTelefono = this.TipoTelefono.TipoID[index];
                     
                 }
                 
