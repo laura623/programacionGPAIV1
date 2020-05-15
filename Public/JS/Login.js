@@ -40,11 +40,7 @@ function Access() {
 	
 	fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=recibirDatos&RegistrarUsuario=${JSON.stringify(Login)}`).then( resp=>resp.json() ).then(resp=>{
 
-		console.log(resp.nombre[0]['nombres_completos']);
-		console.log(resp.nombre[0]['id_perfil']);
-		
 		console.log(resp.cont);
-
 		if(resp.cont >0){
 			
 			sessionStorage.setItem('nombre',resp.nombre[0]['nombres_completos']);
@@ -52,7 +48,8 @@ function Access() {
 			irHome();
 		}
 		else if (resp.cont ==0){
-			alertify.error('El usuario o contraseña son incorrectos');
+
+			alertify.alert('Error', 'El usuario o contraseña son incorrectos');
 		}
 	});
 }

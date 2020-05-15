@@ -3,3 +3,37 @@
     justify-content: center;
     text-align: center;
 }
+
+.Paginador {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.Paginador ul{
+    list-style: none;
+    text-align: center;
+}
+
+.Paginador ul li{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.Paginador ul li a{
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    background: #024959;
+    text-decoration: none;
+}
+
+.Paginador ul li a:hover{
+    background: #037E8C;
+}
+
+.Paginador ul li .activado{
+    background: #037E8C;
+    font-weight: bold;
+}

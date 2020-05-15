@@ -121,21 +121,32 @@
                 
                 if ( $this->datos['accion'] === 'modificar') {
 
-                    $ruta = "file:///home/stanley/Imágenes/".$this->datos['Titulo'];
+                    if (empty($this->datos['Titulo'])) {
+                        
+
+                        $this->db->consultas('UPDATE imformacion_academica SET  id_universidad = '.$this->datos['Universidad'].', id_carrera = '.$this->datos['Carrera'].', CUM = '.$this->datos['CUM'].' WHERE imformacion_academica.id_academica = '.$this->datos['idInformacion']);
+
+                        $this->respuesta['msg'] = 'Registro modificado correctamente';
+                    } else {
+
+                        $ruta = "file:///home/stanley/Imágenes/".$this->datos['Titulo'];
                     
-                    $data = fopen($ruta, 'rb');
+                        $data = fopen($ruta, 'rb');
 
-                    $size = filesize ($ruta);
+                        $size = filesize ($ruta);
 
-                    $contents = fread ($data, $size);
+                        $contents = fread ($data, $size);
 
-                    fclose ($data);
+                        fclose ($data);
 
-                    $encoded = base64_encode($contents);
+                        $encoded = base64_encode($contents);
 
-                    $this->db->consultas('UPDATE imformacion_academica SET  id_universidad = '.$this->datos['Universidad'].', id_carrera = '.$this->datos['Carrera'].', titulo_universitario = "'.$encoded.'", CUM = '.$this->datos['CUM'].' WHERE imformacion_academica.id_academica = '.$this->datos['idInformacion']);
+                        $this->db->consultas('UPDATE imformacion_academica SET  id_universidad = '.$this->datos['Universidad'].', id_carrera = '.$this->datos['Carrera'].', titulo_universitario = "'.$encoded.'", CUM = '.$this->datos['CUM'].' WHERE imformacion_academica.id_academica = '.$this->datos['idInformacion']);
 
-                    $this->respuesta['msg'] = 'Registro modificado correctamente';
+                        $this->respuesta['msg'] = 'Registro modificado correctamente';
+
+                    }
+
                 }
                 
             }

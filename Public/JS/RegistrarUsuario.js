@@ -32,36 +32,50 @@ var appRegistrarUsuario = new Vue({
 
         guardarRegistrarUsuario:function(){
 
-            for (let index = 0; index < this.Genero.length; index++) {
-                if (this.Genero[index] == this.RegistrarUsuario.Genero) {
-                    this.RegistrarUsuario.Genero = this.GeneroId[index];
-                }
-            }
+            var d = new Date();
 
-            for (let index = 0; index < this.Status.length; index++) {
-                if (this.Status[index] == this.RegistrarUsuario.Estatus) {
-                    this.RegistrarUsuario.Estatus = this.StatusId[index];
-                }
-            }
+            console.log("Actual: " + d.getFullYear());
+            console.log("Ingresada: " + new Date(this.RegistrarUsuario.Fecha).getFullYear());
 
-            console.log(JSON.stringify(this.RegistrarUsuario));
+            var Age = d.getFullYear() - new Date(this.RegistrarUsuario.Fecha).getFullYear();
+
+            console.log("Edad del usuario" + Age);
             
-            
-            fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=recibirDatos&RegistrarUsuario=${JSON.stringify(this.RegistrarUsuario)}`).then( resp=>resp.json() ).then(resp=>{
-                this.RegistrarUsuario.msg = resp.msg;
-                this.RegistrarUsuario.idRegistrarUsuario = 0;
-                this.RegistrarUsuario.Nombre = '';
-                this.RegistrarUsuario.Apellido = '';
-                this.RegistrarUsuario.Genero  = '';
-                this.RegistrarUsuario.Estatus  = '';
-                this.RegistrarUsuario.Fecha  = '';
-                this.RegistrarUsuario.DUI  = '';
-                this.RegistrarUsuario.NIT  = '';
-                this.RegistrarUsuario.Usuario  = '';
-                this.RegistrarUsuario.Password  = '';
-                this.RegistrarUsuario.accion = 'nuevo';
+
+            if (Age > 24) {
+                for (let index = 0; index < this.Genero.length; index++) {
+                    if (this.Genero[index] == this.RegistrarUsuario.Genero) {
+                        this.RegistrarUsuario.Genero = this.GeneroId[index];
+                    }
+                }
+
+                for (let index = 0; index < this.Status.length; index++) {
+                    if (this.Status[index] == this.RegistrarUsuario.Estatus) {
+                        this.RegistrarUsuario.Estatus = this.StatusId[index];
+                    }
+                }
+
+                console.log(JSON.stringify(this.RegistrarUsuario));
                 
-            });
+                fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=recibirDatos&RegistrarUsuario=${JSON.stringify(this.RegistrarUsuario)}`).then( resp=>resp.json() ).then(resp=>{
+                    this.RegistrarUsuario.msg = resp.msg;
+                    this.RegistrarUsuario.idRegistrarUsuario = 0;
+                    this.RegistrarUsuario.Nombre = '';
+                    this.RegistrarUsuario.Apellido = '';
+                    this.RegistrarUsuario.Genero  = '';
+                    this.RegistrarUsuario.Estatus  = '';
+                    this.RegistrarUsuario.Fecha  = '';
+                    this.RegistrarUsuario.DUI  = '';
+                    this.RegistrarUsuario.NIT  = '';
+                    this.RegistrarUsuario.Usuario  = '';
+                    this.RegistrarUsuario.Password  = '';
+                    this.RegistrarUsuario.accion = 'nuevo';
+                    
+                });
+            }
+            else{
+                alertify.alert('Error', 'Debe ser mayor de 24 años');
+            }
 
         },
         buscarRegistrarUsuario:function(){

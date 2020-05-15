@@ -101,7 +101,8 @@
                 $ImprimirTipoTelefonoIDs[] = $TipoTelefono[$i]['id_tipo_telefono'];
             }
 
-            return $this->respuesta = ['Departamento'=>["Departamento" => $imprimirDepartamento, "DepartamentoID" => $imprimirDepartamentoIDs], 'Municipio'=>["Municipio" => $ImprimirMunicipio, "MunicipioID" => $ImprimirMunicipioIDs] , "TipoTelefono" => ["Tipo" => $ImprimirTipoTelefono, "TipoID" => $ImprimirTipoTelefonoIDs]];//array de php en v7+
+            return $this->respuesta = ['Departamento'=>["Departamento" => $imprimirDepartamento, "DepartamentoID" => $imprimirDepartamentoIDs], 'Municipio'=>["Municipio" => $ImprimirMunicipio, "MunicipioID" => $ImprimirMunicipioIDs] , "TipoTelefono"=>["Tipo" => $ImprimirTipoTelefono, "TipoID" => $ImprimirTipoTelefonoIDs]];//array de php en v7+
+            
         }
 
         public function buscarRegistrarUsuario($valor=''){
@@ -121,7 +122,11 @@
                 
                 if ( $this->datos['accion'] === 'modificar') {
 
-                    $this->db->consultas('UPDATE perfil_de_usuario SET nombres_completos= "'.$this->datos['Nombre'].'",apellidos_completo= "'.$this->datos['Apellido'].'",id_genero= '.$this->datos['Genero'].',id_estatus= '.$this->datos['Estatus'].', fecha_de_nacimiento= "'.$this->datos['Fecha'].'", DUI= "'.$this->datos['DUI'].'", NIT= "'.$this->datos['NIT'].'",usuario= "'.$this->datos['Usuario'].'", contraseña= "'.$this->datos['Password'].'" WHERE perfil_de_usuario.id_perfil = '.$this->datos['idRegistrarUsuario']);
+                    $this->db->consultas('UPDATE correo_usuario SET correo="'.$this->datos['Correo'].'" WHERE correo_usuario.id_perfil ='.$this->datos['IdPerfil']);
+
+                    $this->db->consultas('UPDATE registro_residencia_usuario SET id_numero_departamento='.$this->datos['Departamento'].',id_municipio='.$this->datos['Municipio'].',direccion="'.$this->datos['Direccion'].'" WHERE registro_residencia_usuario.id_perfil = '.$this->datos['IdPerfil']);
+
+                    $this->db->consultas('UPDATE registro_tele SET telefono='.$this->datos['Telefono'].' ,id_tipo_de_telefono="'.$this->datos['TipoTelefono'].'" WHERE registro_tele.id_perfil ='.$this->datos['IdPerfil']);
 
                     $this->respuesta['msg'] = 'Registro modificado correctamente';
                 }

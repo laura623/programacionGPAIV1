@@ -90,7 +90,7 @@
 
 
         public function eliminarRegistrarUsuario($idRegistrarUsuario=''){
-            $this->db->consultas('DELETE FROM perfil_de_usuario WHERE perfil_de_usuario.id_perfil = '. $idRegistrarUsuario);
+            $this->db->consultas('DELETE FROM registro_historial_empleos WHERE registro_historial_empleos.id_historial = '. $idRegistrarUsuario);
             $this->respuesta['msg'] = 'Registro eliminado correctamente';
         }
 

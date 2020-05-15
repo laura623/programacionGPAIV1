@@ -1,0 +1,49 @@
+<div class="card bg-light mb-3" style="width: 28rem;">
+    <div class="card-header">INFORMACION ACADEMICA</div>
+    <div class="card-body">
+        <form method="get" v-on:submit.prevent="Guardar" id="frmAcademica" >
+            <div class="row p-2">
+                <div class="col-">
+                    Universidad
+                </div>
+                <div class="col-6">
+                    <v-select v-model="Informacion.Universidad" style="width: 100%;" class="style-chooser" placeholder="Universidad" :options="Universidad.Universidad"></v-select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-">
+                    Carrera
+                </div>
+                <div class="col-6">
+                    <v-select v-model="Informacion.Carrera" style="width: 100%;" class="style-chooser" placeholder="Carrera" :options="Carrera.Carrera"></v-select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-">
+                    Titulo Universitario
+                </div>
+                <div class="col-4">
+                    <div id="imgInp">
+                    </div>
+                   <input onchange="readImage(this)" type="file" name="image" accept="image/*" id="blah">
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-">
+                    CUM
+                </div>
+                <div class="col-4">
+                    <input v-model="Informacion.CUM" type="number" placeholder="100" >
+                </div>
+            </div>
+            <div class="row p-2"> 
+                <div class="col-12 text-center">
+                    <input type="submit" class="btn btn-success text-white" value="Registrar">
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="Public/Module/Perfil/Academica/Academica.js"></script>
