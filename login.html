@@ -205,13 +205,14 @@
 							<div class="col-6">
 								<div class="input-div pass" style="width:100%">
 									<div class="i">
-										<i class="fas fa-lock"></i>
+										<i id="password" v-on:click="pass()" data-accion="hide" style="cursor: pointer;" class="fas fa-lock"></i>
 									</div>
 									<div class="div">
-											<h5>Password</h5>
-											<input type="password" v-model="RegistrarUsuario.Password" class="input" id="Password">
+										<h5>Password</h5>
+										<input id="pass" type="password" v-model="RegistrarUsuario.Password" class="input" id="Password">
 									</div>
 								</div>
+								<input type="button" style="width: 150px; background-color: coral; justify-content: center;" class="btn bg-secondary text-white" v-on:click="generarPassword" value="Generar">
 							</div>
 						</div>
 						<div class="row p-2">
@@ -252,5 +253,6 @@
 	<script src="./Public/JS/RegistrarUsuario.js"></script>		
 	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 	<script type="text/javascript" src="Public/JS/Login.js"></script>
+	
 </body>
 </html>

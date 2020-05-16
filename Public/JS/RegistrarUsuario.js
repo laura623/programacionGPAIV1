@@ -78,6 +78,39 @@ var appRegistrarUsuario = new Vue({
             }
 
         },
+        generarPassword: function () {
+            var options = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9",".","-","_","$","&","#","@"];
+            let passAleatorio, passGenerado = '';
+            for (let index = 0; index < 8; index++) {
+                
+                passAleatorio = parseInt(Math.random()*options.length);
+		        passGenerado += options[passAleatorio];
+                
+            }
+            console.log(passGenerado);
+            document.getElementById("pass").value = passGenerado;
+        },
+        pass: function () {
+            var current = $("#password").data('accion');
+				console.log(current);
+				
+
+				if (current == 'hide') {
+					console.log("ocultar");
+					
+                    $("#pass").attr('type','text');
+                    $("#password").removeClass('fas fa-lock').addClass('fas fa-lock-open');
+                    $("#password").data('accion','show');
+				}
+
+				if (current == 'show') {
+					console.log("Mostrar");
+					
+					$("#pass").attr('type','password');
+                    $("#password").removeClass('fas fa-lock-open').addClass('fas fa-lock');
+                    $("#password").data('accion', 'hide');
+				}
+        },
         buscarRegistrarUsuario:function(){
 
             appBuscarRegistrarUsuario.buscarRegistrarUsuario();
