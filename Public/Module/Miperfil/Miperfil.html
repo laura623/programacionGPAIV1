@@ -282,3 +282,122 @@
       </div>
     </div>
   </div>
+
+  <style>
+      #messages{
+          width: 95%;
+          max-width: 400px;
+          height: 350px;
+          overflow-y: scroll;
+          border: 1px solid #eee;
+          box-shadow: 0px 0px 20px #ccc inset;
+      }
+
+      .message{
+          margin: 20px;
+          padding: 5px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          background: white;
+      }
+      .botonChat{
+        display: flex;
+        background-color: rgb(0, 140, 255);
+        border-radius: 30px;
+        width: 50px;
+        padding: 10px;
+        margin: 20px;
+        justify-content: center;
+        justify-items: center;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .enviarMessage{
+        background-color: skyblue;
+        background-image: url('Public/img/enviar.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 20px 20px;
+        width: 40px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+        font-size:11px;
+        line-height:32px;
+        text-transform: uppercase;
+        float: right;
+      }
+      .containerChatWrite{
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-right: 13px;
+      }
+      #text{
+        height: 35px;
+        width: 80%;
+      }
+  </style>
+
+  <div id="MSG" style="margin: 20px" role="alert" aria-live="assertive" aria-atomic="true" class="toast fixed-bottom" data-autohide="false">
+    <div class="toast-header text-white bg-primary">
+      <img src="Public/img/chat-24px.svg" class="rounded mr-2" alt="...">
+      <strong class="mr-auto">Chat</strong>
+      <button id="btnCloseChat" type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      <div id="messages">
+
+        <div class="message">
+          <strong>Bot - SRP</strong>
+          <p>Bienvenido al sistema de chat de nuestra aplicacion</p>
+      </div>
+
+      </div>
+
+      <form onsubmit="">
+        <div class="containerChatWrite">
+          <textarea id="text" placeholder="Mensaje"></textarea>
+          <input class="enviarMessage" type="submit" value="">
+        </div>
+          
+      </form>
+    </div>
+  </div>
+  <div id="iconChat" class="fixed-bottom botonChat">
+    <img src="Public/img/chat-24px.svg" alt="">
+  </div>
+  
+  
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+
+        
+      document.getElementById('iconChat').addEventListener('click', function () {
+        $('#MSG').toast('show');
+        $('#iconChat').hide('slow');
+      })
+      
+      $('#btnCloseChat').click(function () {
+        $('#iconChat').show('slow');
+      })
+
+      const tx = document.getElementsByTagName('textarea');
+      for (let i = 0; i < tx.length; i++) {
+        tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+        tx[i].addEventListener("input", OnInput, false);
+      }
+
+      function OnInput() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+      }
+    </script>
