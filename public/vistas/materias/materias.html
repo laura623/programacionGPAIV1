@@ -1,0 +1,49 @@
+<form v-on:submit.prevent="guardarMaterias" v-on:reset="limpiarMaterias" id="frm-materias">
+    <div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
+        <div class="card-header">
+            MANTENIMIENTO DE MATERIAS
+
+            <button type="button" id="btn-close-materias" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row row-cols-1 p-2">
+                <div class="row-col">
+                    <div class="col">
+                        CODIGO:
+                    </div>
+                    <div class="col">
+                        <input type="text" required v-model="materia.codigo" placeholder="000" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 p-2">
+                <div class="row-col">
+                    <div class="col">
+                        NOMBRE:
+                    </div>
+                    <div class="col">
+                        <input type="text" required v-model="materia.nombre" placeholder="AAA AAAA" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 p-2">
+                <div class="row-col text-center">
+                    <div class="col">
+                        <input id="btnGuardarMaterias" type="submit" class="btn btn-outline-primary text-white" value="Guardar">
+                        <input type="reset" class="btn btn-outline-warning text-white" value="Limpiar">
+                        <input type="button" class="btn btn-outline-success mostrar-buscar-materias text-white" data-modulo="materias" data-form="buscar-materias" value="Buscar" >
+                </div>
+            </div>
+            <div class="row row-cols-1 p-2">
+                <div class="row-col text-center">
+                    <div class="col">
+                        <div class="alert alert-success" role="alert">{{ materia.msg }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="public/vistas/materias/materias.js"></script>

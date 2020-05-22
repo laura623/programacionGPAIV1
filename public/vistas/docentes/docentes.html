@@ -1,0 +1,88 @@
+<form method="post" id="frm-docentes" v-on:submit.prevent="guardarDocentes" v-on:reset.prevent="limpiarDocentes">
+    <div class="card text-white bg-dark mb-3" style="max-width: 36rem;">
+        <div class="card-header">
+            MANTENIMIENTO DE DOCENTES
+
+            <button type="button" id="btn-close-docentes" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row row-cols-1 p-2">
+                <div class="row-col">
+                    <div class="col">
+                        CODIGO:
+                    </div>
+                    <div class="col">
+                        <input type="text" required v-model="docente.codigo" placeholder="000" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 p-2">
+                <div class="row-col">
+                    <div class="col">
+                        NOMBRE:
+                    </div>
+                    <div class="col">
+                        <input type="text" required v-model="docente.nombre" placeholder="AAA AAAA" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 p-2">
+                <div class="row-col">
+                    <div class="col">
+                        DIRECCION:
+                    </div>
+                    <div class="col">
+                        <input type="text" required v-model="docente.direccion" placeholder="XXXX000000" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="row-col">
+                    <div class="col">
+                        TELEFONO:
+                    </div>
+                    <div class="col">
+                        <input type="text" required v-model="docente.telefono" placeholder="0000-0000" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="row-col">
+                    <div class="col">
+                        DUI:
+                    </div>
+                    <div class="col">
+                        <input type="text" required v-model="docente.dui" placeholder="00000000-0" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="row-col">
+                    <div class="col">
+                        NIT:
+                    </div>
+                    <div class="col">
+                        <input type="text" required v-model="docente.nit" placeholder="0000-000000-000-0" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 p-2">
+                <div class="row-col text-center">
+                    <div class="col">
+                        <input id="btnGuardarDocentes" type="submit" class="btn btn-outline-primary text-white" value="Guardar">
+                        <input type="reset" class="btn btn-outline-warning text-white" value="Limpiar">
+                        <input type="button" class="btn btn-outline-success mostrar-buscar-docentes text-white" data-modulo="docentes" data-form="buscar-docentes" value="Buscar" >
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 p-2">
+                <div class="row-col text-center">
+                    <div class="col">{{ docente.msg }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="public/vistas/docentes/docentes.js"></script>

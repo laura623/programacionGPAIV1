@@ -1,0 +1,45 @@
+<form method="post" id="frm-buscar-docentes">
+    <div class="card text-white bg-dark mb-3" style="max-width: 48rem;">
+        <div class="card-header">
+            BUSQUEDA DE DOCENTES
+
+            <button type="button" id="btn-close-buscar-docentes" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="card-body">
+            <table id="tbl-buscar-docentes" class="table-striped table-dark table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="7">
+                            <input type="text" v-model="valor" v-on:keyup="buscarDocentes" placeholder="codigo, nombre, dui o nit" class="form-control">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>CODIGO</th>
+                        <th>NOMBRE</th>
+                        <th>DIRECCION</th>
+                        <th>TELEFONO</th>
+                        <th>DUI</th>
+                        <th>NIT</th> 
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="mi_docente in mis_docentes" :key="mi_docente.idDocente" v-on:click="modificarDocente(mi_docente)" >
+                        <td>{{ mi_docente.codigo }}</td>
+                        <td>{{ mi_docente.nombre }}</td>
+                        <td>{{ mi_docente.direccion }}</td>
+                        <td>{{ mi_docente.telefono }}</td>
+                        <td>{{ mi_docente.dui }}</td>
+                        <td>{{ mi_docente.nit }}</td>
+                        <td>
+                            <input v-on:click="eliminarDocente(mi_docente.idDocente)" type="button" class="btn btn-outline-danger text-white" value="del">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<script src="public/vistas/docentes/buscar-docentes.js"></script>
