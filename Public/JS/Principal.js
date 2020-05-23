@@ -19,16 +19,17 @@ function Inicio() {
     }).show( "scale", 1000 );
 }
 
-function Registro() {
-    $(`#body`).hide("scale", 1000);
-    $(`#body`).load(`Public/Module/Perfil/Perfil.html`, function () {
+$( "[class*='Mostrar']" ).click(function() {
 
-    }).show( "scale", 1000 );
-}
+    let Modulo = $(this).data("modulo");
+    console.log(Modulo);
+    
+	$("#body").hide("fold", "slow");
+	
+	
+	$("#body").load(`Public/Module/${Modulo}/${Modulo}.html`, function() {
+	
+	}).show("scale", "slow");
+ 
+});
 
-function Contactanos() {
-    $(`#body`).hide("scale", 1000);
-    $(`#body`).load(`Public/Module/Contacto/Contacto.html`, function () {
-
-    }).show( "scale", 1000 );
-}
