@@ -1,5 +1,5 @@
 
-let appInformacionPersonal = new Vue({
+var appInformacionPersonal = new Vue({
 
     el: "#frmPersonal",
     data:{
@@ -21,8 +21,8 @@ let appInformacionPersonal = new Vue({
             
             fetch(`Private/Module/Informacion/Personal.php?proceso=traer_para_vselect&RegistrarUsuario=`).then(resp => resp.json()).then( resp => {
                 
-                appInformacionPersonal.Departamento = resp.Departamento;
-                appInformacionPersonal.Municipio = resp.Municipio;
+                this.Departamento = resp.Departamento;
+                this.Municipio = resp.Municipio;
             });
         },
         Guardar: function () {

@@ -83,7 +83,7 @@
 
         public function traer_para_vselect(){
 
-            $this->db->consultas('SELECT * FROM registro_universidad');
+            $this->db->consultas('SELECT * FROM registro_universidad ORDER BY registro_universidad.universidad ASC');
             $Universidad = $this->db->obtener_data();
 
             $imprimirUniversidad = [];
