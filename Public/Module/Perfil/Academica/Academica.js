@@ -18,9 +18,24 @@ let appInformacionAcademica = new Vue({
 
         Datos: function () {
             fetch(`Private/Module/Informacion/Academica.php?proceso=traer_para_vselect&RegistrarUsuario=`).then(resp => resp.json()).then( resp => {
+                console.log("Entre");
+                
                 appInformacionAcademica.Universidad = resp.Universidad;
-                appInformacionAcademica.Carrera = resp.Carrera;
             });
+        },
+        Carrera: function () {
+            console.log("Cargando Carrera");
+            
+            let id;
+            for (let index = 0; index < this.Universidad.Universidad.length; index++) {
+                if (this.Universidad.Universidad[index] == this.Informacion.Universidad) {
+                    id = this.Universidad.UniversidadID[index];
+                }
+                
+            }
+            fetch(`Private/Module/Informacion/Academica.php?proceso=traer_para_vselect_Carreras&RegistrarUsuario=${id}`).then(resp => resp.json()).then( resp => {
+                appInformacionAcademica.Carrera = resp.Carrera;
+            })
         },
         Guardar: function () {
 

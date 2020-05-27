@@ -7,7 +7,17 @@
                     Universidad
                 </div>
                 <div class="col-6">
-                    <v-select v-model="Informacion.Universidad" style="width: 100%;" class="style-chooser" placeholder="Universidad" :options="Universidad.Universidad"></v-select>
+                    <v-select v-model="Informacion.Universidad" @change="Carrera()"  style="width: 100%;" class="style-chooser" placeholder="Universidad" :options="Universidad.Universidad">
+                        <template #search="{attributes, events}">
+                            <input
+                                
+                                class="vs__search"
+                                :required="!Informacion.Universidad"
+                                v-bind="attributes"
+                                v-on="events"
+                            />
+                          </template>
+                    </v-select>
                 </div>
             </div>
             <div class="row p-2">

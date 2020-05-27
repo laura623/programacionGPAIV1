@@ -1,4 +1,4 @@
-var Socket = io.connect('http://192.168.43.153:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
+var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
 
 Socket.on('messages', function (data) {
     console.log(JSON.stringify(data));

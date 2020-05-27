@@ -94,6 +94,12 @@
                 $imprimirUniversidad[] = $Universidad[$i]['universidad'];
             }
 
+
+            return $this->respuesta = ['Universidad'=>["Universidad" => $imprimirUniversidad, "UniversidadID" => $imprimirUniversidadIDs]];//array de php en v7+
+        }
+
+        public function traer_para_vselect_Carreras ($id = ''){
+
             $this->db->consultas('SELECT * FROM registro_de_carrera');
             $Carrera = $this->db->obtener_data();
 
@@ -105,8 +111,7 @@
                 $ImprimirCarreraIDs[] = $Carrera[$i]['id_carrera'];
             }
 
-
-            return $this->respuesta = ['Universidad'=>["Universidad" => $imprimirUniversidad, "UniversidadID" => $imprimirUniversidadIDs], 'Carrera'=>["Carrera" => $ImprimirCarrera, "CarreraID" => $ImprimirCarreraIDs]];//array de php en v7+
+            return $this->respuesta = ['Carrera'=>["Carrera" => $ImprimirCarrera, "CarreraID" => $ImprimirCarreraIDs]];
         }
 
 

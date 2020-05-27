@@ -19,7 +19,7 @@ var appBandeja = new Vue({
             MostrarChat: function (ID) {
                 console.log(ID);
                 
-                var Socket = io.connect('http://192.168.43.153:6677', {'forceNew':true, 'query':`id=${ID}`} );
+                var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${ID}`} );
                 SocketON = Socket;
                 Socket.on('messages', function (data) {
                     console.log(JSON.stringify(data));
