@@ -126,6 +126,21 @@
                 <button>Ingresar</button>
             </div>
         </div>
+
+        <div class="card">
+    
+            <div class="image">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Google_Inbox_by_Gmail_logo.png">
+            </div>
+    
+            <div class="title">
+                <h1>Bandeja de Entrada</h1>
+            </div>
+            
+            <div class="des">
+                <button onclick="Bandeja()">Ingresar</button>
+            </div>
+        </div>
     
     </div>
     
@@ -309,13 +324,24 @@
     
             </div>
     
-          <form onsubmit="return addMessage(this)">
-            <div class="containerChatWrite">
-              <textarea required id="text" placeholder="Mensaje"></textarea>
-              <input class="enviarMessage" type="submit" value="">
-            </div>
-              
-          </form>
+            <form onsubmit="return addMessage(this)">
+                <div class="input-group mb-3 text-dark espacio">
+                        
+                    <input type="text" required id="text" class="form-control" placeholder="Escribe un mensaje...." aria-label="Example text with two button addons" aria-describedby="button-addon3">
+                    <div class="input-group-prepend shadow " id="button-addon3">
+                        <div id="div_file" class="btn btn-outline-primary">
+                            <p id="texto"><i class="fas fa-images"></i></p>
+                            <input v-on:change="InsertarImagen" type="file" id="btnArchivo">
+                        </div>
+                        <div id="div_file" class="btn btn-outline-success">
+                            <p id="texto"><i class="far fa-paper-plane"></i></p>
+                            <input type="submit" id="btn_enviar" class="btn btn-outline-success enviar rounded-pill" value="">
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </form>
         </div>
     </div>
     

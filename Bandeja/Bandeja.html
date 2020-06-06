@@ -16,7 +16,10 @@
                 <input type="text" v-model="valor" v-on:keyup="Datos()" name="" placeholder="Ingrese el nombre" id="">
             </div>
             <div v-for="User in Usuarios" :key="User.id_perfil" class="Usuarios">
-                <div class="Usuario" v-on:click="MostrarChat(User.id_perfil)">
+                <div v-if="User.msgE > 0" class="Usuario notificar" v-on:click="MostrarChat(User.id_perfil)">
+                    <h4>{{   User.nombres_completos   }}</h4>
+                </div>
+                <div v-else class="Usuario " v-on:click="MostrarChat(User.id_perfil)">
                     <h4>{{   User.nombres_completos   }}</h4>
                 </div>
             </div>

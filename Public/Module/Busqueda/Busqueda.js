@@ -4,25 +4,28 @@ var appBuscarRegistrarUsuario = new Vue({
 
     data:{
         RegistrarUsuarioes:[],
-        valor:'',
-        RegistrarUsuarioAvanzado:[],
-        valorAvanzado:''
+        valor:{
+            Nombre: '',
+            Carrera: '',
+            Edad: '',
+            Egreso: '',
+            Nivel: '',
+            Categoria: ''
+        },
     },
     methods:{
 
         buscarRegistrarUsuario:function(){
-            fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=buscarRegistrarUsuario&RegistrarUsuario=${this.valor}`).then(resp=>resp.json()).then(resp=>{
+            console.log(JSON.stringify(this.valor));
+            
+            fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=buscarRegistrarUsuario&RegistrarUsuario=${JSON.stringify(this.valor)}`).then(resp=>resp.json()).then(resp=>{
                 this.RegistrarUsuarioes = resp;
             });
         },
-        buscarRegistrarUsuarioAvanzado:function(){
-            fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=buscarRegistrarUsuarioAvanzado&RegistrarUsuario=${this.valorAvanzado}`).then(resp=>resp.json()).then(resp=>{
-                this.RegistrarUsuarioAvanzado = resp;
-            });
-        },
         verificacionEliminacion:function(idRegistrarUsuario){
-            alertify.confirm('Alerta', 'Esta seguro de eliminar este registro',function(){
-                appBuscarRegistrarUsuario.eliminarRegistrarUsuario(idRegistrarUsuario);
+            var estatus = this;
+            alertify.confirm('Alerta', `Esta seguro de eliminar este registro ${idRegistrarUsuario}`,function(){
+                estatus.eliminarRegistrarUsuario(idRegistrarUsuario);
                 alertify.success('Registro Eliminado');
                 
             }, function() {
@@ -34,14 +37,22 @@ var appBuscarRegistrarUsuario = new Vue({
         eliminarRegistrarUsuario(id){
             console.log(id);
             
-            fetch(`PRIVATE/Module/RegistroUsuario/Proceso.php?proceso=eliminarRegistrarUsuario&RegistrarUsuario=${id}`).then(resp=>resp.json()).then(resp=>{
+            fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=eliminarRegistrarUsuario&RegistrarUsuario=${id}`).then(resp=>resp.json()).then(resp=>{
                 this.buscarRegistrarUsuario();
             });
+        },
+        Limpiar(){
+            this.valor.Nombre = ''
+            this.valor.Carrera = ''
+            this.valor.Edad = ''
+            this.valor.Egreso = ''
+            this.valor.Nivel = ''
+            this.valor.Categoria = ''
+            this.buscarRegistrarUsuario();
         }
     },
     created:function(){
         this.buscarRegistrarUsuario();
-        this.buscarRegistrarUsuarioAvanzado();
     }
 
     

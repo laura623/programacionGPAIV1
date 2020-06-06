@@ -1,4 +1,9 @@
-var SocketON;
+var SocketON, id;
+var temporal = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=0`} );
+temporal.on('messages', function (data) {
+    appBandeja.Datos();
+    
+});
 var appBandeja = new Vue({
     el: "#Buscador",
     data: {
@@ -10,7 +15,7 @@ var appBandeja = new Vue({
 
             Datos: function () {
     
-                fetch(`../Private/Module/RegistroUsuario/Proceso.php?proceso=buscarRegistrarUsuario&RegistrarUsuario=${this.valor}`).then( resp => resp.json()).then(resp => {
+                fetch(`../Private/Module/RegistroUsuario/Proceso.php?proceso=buscarUsuarioMSGE&RegistrarUsuario=${this.valor}`).then( resp => resp.json()).then(resp => {
 
                     this.Usuarios = resp;
 
@@ -18,11 +23,13 @@ var appBandeja = new Vue({
             },
             MostrarChat: function (ID) {
                 console.log(ID);
+                id = ID;
                 
                 var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${ID}`} );
                 SocketON = Socket;
                 Socket.on('messages', function (data) {
                     console.log(JSON.stringify(data));
+                    appBandeja.Datos();
                     render(data);
                     
                 });
@@ -77,6 +84,12 @@ var appBandejaInsertar = new Vue({
             };
             
             SocketON.emit('add-message', message);
+            fetch(`../Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGR&RegistrarUsuario=${id}`).then( resp => resp.json()).then(resp => {
+        
+            });
+            fetch(`../Private/Module/RegistroUsuario/Proceso.php?proceso=EliminarSMGE&RegistrarUsuario=${id}`).then( resp => resp.json()).then(resp => {
+                
+            });
         }
     }
 })

@@ -9,6 +9,7 @@
     if ( isset( $_GET['proceso'] ) && strlen( $_GET['proceso'] ) > 0) {
         $proceso = $_GET['proceso'];
     }
+    
 
     $RegistrarUsuario->$proceso($_GET['RegistrarUsuario']);
  
@@ -54,14 +55,11 @@
             if ( $this->respuesta['msg'] == 'correcto') {
                 
                 if ( $this->datos['accion'] === 'nuevo') {
+                    
+                    // $this->db->consultas('INSERT INTO correo_usuario( id_perfil, correo) VALUES ('.$this->datos['IdPerfil'].',"'.$this->datos['Correo'].'")');
 
-                    $this->db->consultas('INSERT INTO correo_usuario( id_perfil, correo) VALUES ('.$this->datos['IdPerfil'].',"'.$this->datos['Correo'].'")');
-
-                    $this->db->consultas('INSERT INTO registro_residencia_usuario(id_perfil, id_numero_departamento, id_municipio, direccion) VALUES ('.$this->datos['IdPerfil'].', '.$this->datos['Departamento'].', '.$this->datos['Municipio'].', "'.$this->datos['Direccion'].'")');
-
-                    $this->db->consultas('INSERT INTO registro_tele( id_perfil, telefono, id_tipo_de_telefono) VALUES ('.$this->datos['IdPerfil'].', "'.$this->datos['Telefono'].'", '.$this->datos['TipoTelefono'].')');
-
-                    $this->respuesta['msg'] = 'Registro insertado correctamente';
+                    
+                    $this->respuesta['msg'] = $this->datos['img'];
                 }
 
             }
@@ -79,7 +77,30 @@
                 $imprimirDepartamento[] = $Departamento[$i]['departamento'];
             }
 
-            $this->db->consultas('SELECT * FROM municipio');
+            $this->db->consultas('SELECT * FROM Zona');
+            $Zona = $this->db->obtener_data();
+
+            $ImprimirZona = [];
+            $ImprimirZonaIDs = [];
+
+            for ($i=0; $i < count($Zona); $i++) { 
+                $ImprimirZona[] = $Zona[$i]['Tipo'];
+                $ImprimirZonaIDs[] = $Zona[$i]['id_Zona'];
+            }
+
+            return $this->respuesta = ['Departamento'=>["Departamento" => $imprimirDepartamento, "DepartamentoID" => $imprimirDepartamentoIDs], "Zona"=>["Zona" => $ImprimirZona, "ZonaID" => $ImprimirZonaIDs]];//array de php en v7+
+            
+        }
+
+        public function ValidarCampos($dui)
+        {
+            $this->db->consultas('SELECT COUNT(*) AS Contador FROM perfil_de_usuario WHERE perfil_de_usuario.DUI ="'.$dui.'"');
+            return $this->respuesta = $this->db->obtener_data();
+            
+        }
+
+        public function traer_para_vselect_municipio ($id) {
+            $this->db->consultas('SELECT * FROM municipio WHERE municipio.id_numero_departamento = '. $id);
             $Municipio = $this->db->obtener_data();
 
             $ImprimirMunicipio = [];
@@ -90,19 +111,8 @@
                 $ImprimirMunicipioIDs[] = $Municipio[$i]['id_municipio'];
             }
 
-            $this->db->consultas('SELECT * FROM tipo_de_telefono');
-            $TipoTelefono = $this->db->obtener_data();
+            return $this->respuesta = ['Municipio'=>["Municipio" => $ImprimirMunicipio, "MunicipioID" => $ImprimirMunicipioIDs]];
 
-            $ImprimirTipoTelefono = [];
-            $ImprimirTipoTelefonoIDs = [];
-
-            for ($i=0; $i < count($TipoTelefono); $i++) { 
-                $ImprimirTipoTelefono[] = $TipoTelefono[$i]['tipo'];
-                $ImprimirTipoTelefonoIDs[] = $TipoTelefono[$i]['id_tipo_telefono'];
-            }
-
-            return $this->respuesta = ['Departamento'=>["Departamento" => $imprimirDepartamento, "DepartamentoID" => $imprimirDepartamentoIDs], 'Municipio'=>["Municipio" => $ImprimirMunicipio, "MunicipioID" => $ImprimirMunicipioIDs] , "TipoTelefono"=>["Tipo" => $ImprimirTipoTelefono, "TipoID" => $ImprimirTipoTelefonoIDs]];//array de php en v7+
-            
         }
 
         public function buscarRegistrarUsuario($valor=''){
@@ -112,7 +122,7 @@
 
 
         public function eliminarRegistrarUsuario($idRegistrarUsuario=''){
-            $this->db->consultas('DELETE FROM perfil_de_usuario WHERE perfil_de_usuario.id_perfil = '. $idRegistrarUsuario);
+            $this->db->consultas('DELETE FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.id_perfil = '. $idRegistrarUsuario);
             $this->respuesta['msg'] = 'Registro eliminado correctamente';
         }
 
@@ -122,11 +132,7 @@
                 
                 if ( $this->datos['accion'] === 'modificar') {
 
-                    $this->db->consultas('UPDATE correo_usuario SET correo="'.$this->datos['Correo'].'" WHERE correo_usuario.id_perfil ='.$this->datos['IdPerfil']);
-
-                    $this->db->consultas('UPDATE registro_residencia_usuario SET id_numero_departamento='.$this->datos['Departamento'].',id_municipio='.$this->datos['Municipio'].',direccion="'.$this->datos['Direccion'].'" WHERE registro_residencia_usuario.id_perfil = '.$this->datos['IdPerfil']);
-
-                    $this->db->consultas('UPDATE registro_tele SET telefono='.$this->datos['Telefono'].' ,id_tipo_de_telefono="'.$this->datos['TipoTelefono'].'" WHERE registro_tele.id_perfil ='.$this->datos['IdPerfil']);
+                    $this->db->consultas('UPDATE perfil_de_usuario SET Usuario="'.$this->datos['Usuario'].'", Pass="'.$this->datos['Password'].'" WHERE perfil_de_usuario.id_Perfil ='.$this->datos['IdPerfil']);
 
                     $this->respuesta['msg'] = 'Registro modificado correctamente';
                 }

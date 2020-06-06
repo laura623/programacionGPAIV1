@@ -94,13 +94,46 @@
                 $imprimirUniversidad[] = $Universidad[$i]['universidad'];
             }
 
+            $this->db->consultas('SELECT * FROM Categoria_Docente');
+            $CateDocente = $this->db->obtener_data();
 
-            return $this->respuesta = ['Universidad'=>["Universidad" => $imprimirUniversidad, "UniversidadID" => $imprimirUniversidadIDs]];//array de php en v7+
+            $imprimirCateDocente = [];
+            $imprimirCateDocenteIDs = [];
+
+            for ($i=0; $i < count($CateDocente); $i++) { 
+                $imprimirCateDocenteIDs[] = $CateDocente[$i]['id_Categoria_Docente'];
+                $imprimirCateDocente[] = $CateDocente[$i]['Categoria_Docente'];
+            }
+
+            $this->db->consultas('SELECT * FROM Nivel_Docente');
+            $NivelDocente = $this->db->obtener_data();
+
+            $imprimirNivelDocente = [];
+            $imprimirNivelDocenteIDs = [];
+
+            for ($i=0; $i < count($NivelDocente); $i++) { 
+                $imprimirNivelDocenteIDs[] = $NivelDocente[$i]['id_Nivel_Docente'];
+                $imprimirNivelDocente[] = $NivelDocente[$i]['Nivel_Docente'];
+            }
+
+            $this->db->consultas('SELECT registro_de_carrera.carrera, registro_de_carrera.id_carrera FROM `registro_de_carrera` GROUP BY registro_de_carrera.carrera');
+            $OthersCarreras = $this->db->obtener_data();
+
+            $imprimirOthersCarreras = [];
+            $imprimirOthersCarrerasIDs = [];
+
+            for ($i=0; $i < count($OthersCarreras); $i++) { 
+                $imprimirOthersCarrerasIDs[] = $OthersCarreras[$i]['id_carrera'];
+                $imprimirOthersCarreras[] = $OthersCarreras[$i]['carrera'];
+            }
+
+
+            return $this->respuesta = ['Universidad'=>["Universidad" => $imprimirUniversidad, "UniversidadID" => $imprimirUniversidadIDs], "CategoriaDocente" => ["Categoria" => $imprimirCateDocente, "CategoriaDocenteId" => $imprimirCateDocenteIDs], "NivelDocente" => ["NivelDocente" => $imprimirNivelDocente, "NivelDocenteId" => $imprimirNivelDocenteIDs], "OthersCarreras" => ["Carrera" => $imprimirOthersCarreras, "CarreraId" => $imprimirOthersCarrerasIDs]];//array de php en v7+
         }
 
         public function traer_para_vselect_Carreras ($id = ''){
 
-            $this->db->consultas('SELECT * FROM registro_de_carrera');
+            $this->db->consultas('SELECT * FROM registro_de_carrera WHERE registro_de_carrera.id_universidad = '. $id);
             $Carrera = $this->db->obtener_data();
 
             $ImprimirCarrera = [];
@@ -116,7 +149,7 @@
 
 
         public function eliminarRegistrarUsuario($idRegistrarUsuario=''){
-            $this->db->consultas('DELETE FROM perfil_de_usuario WHERE perfil_de_usuario.id_perfil = '. $idRegistrarUsuario);
+            $this->db->consultas('DELETE FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.id_perfil = '. $idRegistrarUsuario);
             $this->respuesta['msg'] = 'Registro eliminado correctamente';
         }
 

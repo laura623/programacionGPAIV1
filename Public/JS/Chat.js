@@ -2,29 +2,81 @@ var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=$
 
 Socket.on('messages', function (data) {
     console.log(JSON.stringify(data));
+    fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=buscarUsuarioMSGR&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
+        console.log(resp[0].msgR);
+        if (resp[0].msgR > 0) {
+            $("#iconChat").addClass("msgRecivido");
+        }
+    });
+
+    
     render(data);
     
 });
+
+var archivo = $("#btnArchivo")
+
+$(archivo).change(function () {
+    var FReader = new FileReader();
+    FReader.readAsDataURL($(archivo).prop("files")[0])
+    FReader.onloadend = function (event) {
+        var message = {
+            nickname: sessionStorage.getItem('nombre'),
+            img: event.target.result
+        };
+    
+        Socket.emit('add-message', message);
+        fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGE&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
+            
+        });
+        fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=EliminarSMGR&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
+            
+        });
+    
+        $("#iconChat").removeClass("msgRecivido");
+        
+    }
+})
 
 function render(data) {
     var html = data.map(function (message, index) {
         if (message.nickname == sessionStorage.getItem('nombre')) {
     
-            return (`
-                <div class="message MSGP">
-                    <strong>${message.nickname}</strong>
-                    <p>${message.text}</p>
-                </div>
-            `);
+            if (message.text) {
+                return (`
+                    <div class="message MSGP">
+                        <strong>${message.nickname}</strong>
+                        <p>${message.text}</p>
+                    </div>
+                `);
+            } else {
+                return (`
+                    <div class="message MSGP">
+                        <strong>${message.nickname}</strong>
+                        <br>
+                        <img class="imgMostrada" src="${message.img}" >
+                    </div>
+                `);
+            }
             
         }
         else{
-            return (`
-                <div class="message MSGO">
-                    <strong>${message.nickname}</strong>
-                    <p>${message.text}</p>
-                </div>
-            `);
+            if (message.text) {
+                return (`
+                    <div class="message MSGO">
+                        <strong>${message.nickname}</strong>
+                        <p>${message.text}</p>
+                    </div>
+                `);
+            } else {
+                return (`
+                    <div class="message MSGO">
+                        <strong>${message.nickname}</strong>
+                        <br>
+                        <img class="imgMostrada" src="${message.img}">
+                    </div>
+                `);
+            }
         }
     }).join('   ');
     var div_msg = document.getElementById("messages");
@@ -39,7 +91,14 @@ function addMessage(e) {
     };
 
     Socket.emit('add-message', message);
+    fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGE&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
+        
+    });
+    fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=EliminarSMGR&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
+        
+    });
 
+    $("#iconChat").removeClass("msgRecivido");
     
     return false;
 }

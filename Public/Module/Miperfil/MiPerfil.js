@@ -10,6 +10,9 @@ function Solicitud() {
 function Contacto() {
     $("#body").load('Public/Module/Contacto/Contacto.html');
 }
+function Bandeja() {
+    $("#body").load('Public/Module/Bandeja/Bandeja.html');
+}
 function Pdf() {
     window.open(`http://localhost/SRP/imprimir_pdf.php?id=${sessionStorage.getItem('id')}`,'Informacion');
 }
