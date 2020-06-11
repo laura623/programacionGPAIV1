@@ -40,15 +40,19 @@ new Vue({
             document.getElementById("Paginacion4").className = "activado";
         },
         Guardar: function () {
-
-            this.Informacion.idInformacion = sessionStorage.getItem('IdRegistrado');
+            if (sessionStorage.getItem('DocenteID')) {
+                this.Informacion.idInformacion = sessionStorage.getItem('DocenteID')
+            } else {
+                this.Informacion.idInformacion = sessionStorage.getItem('IdRegistrado');
+            }
+            
 
             for (let index = 0; index < this.Ciencia.Ciencia.length; index++) {
                 if (this.Ciencia.Ciencia[index] == this.Informacion.Ciencia) {
                     this.Informacion.Ciencia = this.Ciencia.CienciaID[index]
                 }
                 
-            }
+            } 
             for (let index = 0; index < this.Lenguaje.Lenguaje.length; index++) {
                 if (this.Lenguaje.Lenguaje[index] == this.Informacion.Lenguaje) {
                     this.Informacion.Lenguaje = this.Lenguaje.LenguajeID[index]
@@ -89,17 +93,49 @@ new Vue({
             this.Informacion.Reconocimientos = Input;
             console.log(JSON.stringify(this.Informacion));
             fetch(`Private/Module/Informacion/Opcional.php?proceso=recibirDatos&RegistrarUsuario=${JSON.stringify(this.Informacion)}`).then(resp => resp.json()).then( resp => {
-                alertify.success("Insertado correctamente");
+                if (sessionStorage.getItem('DocenteID')) {
+                    alertify.success("Modificado correctamente");
+                }
+                else{
+                    alertify.success("Insertado correctamente");
+                }
+                
                 this.Cambiar();
             });
             
             
+        },
+        BuscarInformacion(){
+            fetch(`Private/Module/Informacion/Opcional.php?proceso=buscarOpcional&RegistrarUsuario=${sessionStorage.getItem('DocenteID')}`).then(resp => resp.json()).then( resp => {
+                this.Informacion = resp.Capacitado[0];
+                this.Informacion.accion = 'modificar'
+                for (let index = 0; index < resp.Reconocimientos.length; index++) {
+                    switch (index) {
+                        case 0:
+                            $("#Reco1").val(resp.Reconocimientos[index].Especifique)
+                            break;
+                        case 1:
+                            $("#Reco2").val(resp.Reconocimientos[index].Especifique)
+                            break;
+                        case 2:
+                            $("#Reco3").val(resp.Reconocimientos[index].Especifique)
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                    
+                }
+            });
         }
 
 
     },
     created: function () {
         this.Datos();
+        if (sessionStorage.getItem('DocenteID')) {
+            this.BuscarInformacion();
+        }
     }
 
 });

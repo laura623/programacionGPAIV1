@@ -49,6 +49,14 @@ var appBuscarRegistrarUsuario = new Vue({
             this.valor.Nivel = ''
             this.valor.Categoria = ''
             this.buscarRegistrarUsuario();
+        },
+        editarDocente(id){
+            console.log(id);
+            sessionStorage.setItem('DocenteID',id);
+            sessionStorage.setItem('Modificar', 'Si');
+            $("#body").load(`Public/Module/Perfil/Perfil.html`, function() {
+	
+            }).show("scale", "slow");
         }
     },
     created:function(){

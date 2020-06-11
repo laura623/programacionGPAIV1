@@ -188,13 +188,46 @@
         }
 
         public function eliminarRegistrarUsuario($idRegistrarUsuario=''){
-            $this->db->consultas('DELETE FROM Capacitado WHERE Capacitado.Id_Perfil = '. $idRegistrarUsuario);
-            $this->db->consultas('DELETE FROM imformacion_academica WHERE imformacion_academica.id_perfil = '. $idRegistrarUsuario);
-            $this->db->consultas('DELETE FROM Otras_Carreras WHERE Otras_Carreras.Id_Perfil = '. $idRegistrarUsuario);
-            $this->db->consultas('DELETE FROM perfil_de_usuario WHERE perfil_de_usuario.id_Perfil = '. $idRegistrarUsuario);
-            $this->db->consultas('DELETE FROM `Postgrado` WHERE Postgrado.Id_Perfil = '. $idRegistrarUsuario);
-            $this->db->consultas('DELETE FROM Reconocimientos WHERE Reconocimientos.Id_Perfil = '. $idRegistrarUsuario);
+            $this->EliminarCapacitado($idRegistrarUsuario);
+            $this->EliminarAcademica($idRegistrarUsuario);
+            $this->EliminarOtraCarrera($idRegistrarUsuario);
+            $this->EliminarPerfilUsuario($idRegistrarUsuario);
+            $this->EliminarPostgrado($idRegistrarUsuario);
+            $this->EliminarReconocimientos($idRegistrarUsuario);
             $this->respuesta['msg'] = 'Registro eliminado correctamente';
+        }
+
+        public function EliminarReconocimientos($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM Reconocimientos WHERE Reconocimientos.Id_Perfil = '. $idRegistrarUsuario);
+            
+        }
+
+        public function EliminarPostgrado($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM `Postgrado` WHERE Postgrado.Id_Perfil = '. $idRegistrarUsuario);
+            
+        }
+
+        public function EliminarPerfilUsuario($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM perfil_de_usuario WHERE perfil_de_usuario.id_Perfil = '. $idRegistrarUsuario);
+        }
+
+        public function EliminarOtraCarrera($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM Otras_Carreras WHERE Otras_Carreras.Id_Perfil = '. $idRegistrarUsuario);
+        }
+
+        public function EliminarAcademica($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM imformacion_academica WHERE imformacion_academica.id_perfil = '. $idRegistrarUsuario);
+            
+        }
+
+        public function EliminarCapacitado($idRegistrarUsuario)
+        {
+            $this->db->consultas('DELETE FROM Capacitado WHERE Capacitado.Id_Perfil = '. $idRegistrarUsuario);
         }
 
         public function modificarRegistrarUsuario(){

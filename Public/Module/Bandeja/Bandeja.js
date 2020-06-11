@@ -1,7 +1,10 @@
+
 var SocketON, id;
 
 var temporal = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=0`} );
+
 temporal.on('messages', function (data) {
+    
     appBandeja.Datos();
     
 });

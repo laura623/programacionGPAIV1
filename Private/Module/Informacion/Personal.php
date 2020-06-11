@@ -113,10 +113,16 @@
 
             return $this->respuesta = ['Municipio'=>["Municipio" => $ImprimirMunicipio, "MunicipioID" => $ImprimirMunicipioIDs]];
 
-        }
+        } 
 
         public function buscarRegistrarUsuario($valor=''){
-            $this->db->consultas('SELECT correo_usuario.correo as Correo, departamento.departamento as Departamento, municipio.municipio as Municipio, registro_residencia_usuario.direccion as Direccion, registro_tele.telefono as Telefono, tipo_de_telefono.tipo as TipoTelefono FROM correo_usuario, departamento, municipio, registro_residencia_usuario, registro_tele, tipo_de_telefono WHERE correo_usuario.id_perfil = '.$valor.' AND registro_residencia_usuario.id_numero_departamento = departamento.id_numero_departamento AND registro_residencia_usuario.id_municipio = municipio.id_municipio AND registro_residencia_usuario.id_perfil = '.$valor.' AND registro_tele.id_perfil = '.$valor.' AND registro_tele.id_tipo_de_telefono = tipo_de_telefono.id_tipo_telefono');
+            $this->db->consultas('SELECT perfil_de_usuario.Nombre, perfil_de_usuario.Fecha_Nacimiento AS Nacimiento, genero.genero as Genero, estatus.estatus AS Estado, perfil_de_usuario.Correo, perfil_de_usuario.DUI, departamento.departamento AS Departamento, municipio.municipio AS Municipio, Zona.Tipo as Zona, perfil_de_usuario.Direccion, perfil_de_usuario.Celular as Telefono, perfil_de_usuario.img FROM perfil_de_usuario, genero, estatus, departamento, municipio, Zona WHERE perfil_de_usuario.id_estatus = estatus.id_estatus AND perfil_de_usuario.id_genero = genero.id_genero AND perfil_de_usuario.id_Departamento = departamento.id_numero_departamento AND perfil_de_usuario.id_Municipio = municipio.id_municipio AND perfil_de_usuario.id_Zona = Zona.id_Zona AND perfil_de_usuario.id_Perfil = '. $valor);
+            return $this->respuesta = $this->db->obtener_data();
+        }
+
+        public function SearchAcount($valor)
+        {
+            $this->db->consultas('SELECT Usuario, Pass AS Password FROM perfil_de_usuario WHERE perfil_de_usuario.id_Perfil = '. $valor);
             return $this->respuesta = $this->db->obtener_data();
         }
 

@@ -14,11 +14,26 @@ new Vue({
     methods:{
 
         Guardar:function(){
-            this.User.IdPerfil = sessionStorage.getItem('IdRegistrado');
+            this.User.accion = 'modificar'
+            if (sessionStorage.getItem('DocenteID')) {
+                this.User.IdPerfil = sessionStorage.getItem('DocenteID')
+            } else {
+                this.User.IdPerfil = sessionStorage.getItem('IdRegistrado');
+            }
+            
             console.log(JSON.stringify(this.User)); 
             fetch(`Private/Module/Informacion/Personal.php?proceso=recibirDatos&RegistrarUsuario=${JSON.stringify(this.User)}`).then(resp => resp.json()).then( resp => {
+                if (sessionStorage.getItem('DocenteID')) {
+                    alertify.alert('SRP', 'Proceso de modificacion terminado', function(){ alertify.success('Ok'); });
+                    sessionStorage.removeItem('DocenteID');
+                    $("#body").load('Public/Module/Busqueda/Busqueda.html');
+                } else {
+                    alertify.alert('SRP', 'Cuenta creada', function(){ alertify.success('Ok'); });
+                    $("#Paginador").load(`Public/Module/Perfil/Personal/Personal.html`, function() {
+
+                    }).show("scale", "slow");
+                }
                 
-                alertify.success("Insertado correctamente");
                 
             });
         },
@@ -31,7 +46,7 @@ new Vue({
 		        passGenerado += options[passAleatorio];
                 
             }
-            this.User.Password = passGenerado;
+            $("#pass").val(passGenerado);
             passAleatorio ='';
             passGenerado ='';
             for (let index = 0; index < 8; index++) {
@@ -40,7 +55,7 @@ new Vue({
 		        passGenerado += options[passAleatorio];
                 
             }
-            this.User.Usuario = passGenerado;
+            $("#User").val(passGenerado);
         },
         pass: function () {
             var current = $("#password").data('accion');
@@ -62,10 +77,19 @@ new Vue({
                     $("#password").removeClass('fas fa-lock-open').addClass('fas fa-lock');
                     $("#password").data('accion', 'hide');
 				}
+        },
+        ObtenerData(){
+            fetch(`Private/Module/Informacion/Personal.php?proceso=SearchAcount&RegistrarUsuario=${sessionStorage.getItem('DocenteID')}`).then(resp => resp.json()).then( resp => {
+                    this.User = resp[0];
+                
+            });
         }
 
     },
     created: function(){
+        if (sessionStorage.getItem('DocenteID')) {
+            this.ObtenerData();
+        }
         
     }
     

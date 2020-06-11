@@ -10,7 +10,7 @@
 
         <div class="card-body">
 
-            <div class="card-text">Para realizar la búsqueda completo uno o varios de los siguientes criterios </div>
+            <div class="card-text">Para realizar la búsqueda, complete uno o varios de los siguientes criterios </div>
 
             <div class="row p-2 border border-dark">
                 <div class="col-9">
@@ -89,7 +89,7 @@
                                             </div>
                                             <div id="div_buttonEditar">
                                                 <p id="texto">EDITAR</p>
-                                                <input type="button" id="btn_editar">
+                                                <input type="button" v-on:click="editarDocente(usuario.id_Perfil)" id="btn_editar">
                                             </div>
                                         </div>
                                     

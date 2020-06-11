@@ -69,11 +69,16 @@
 
         }
 
-        public function buscarRegistrarUsuario($valor){
-            $this->datos = json_decode($valor, true);
+        public function buscarOpcional($valor){
+            
+            $this->db->consultas('SELECT Ciencia.Materia AS Ciencia,Lenguaje.Materia AS Lenguaje, Matematica.Materia AS Matematica, Sociales.Materia AS Sociales, Informatica.Materia AS Informatica, Idiomas.Materia AS Idiomas FROM Ciencia, Lenguaje, Matematica, Sociales, Informatica, Idiomas, Capacitado WHERE Capacitado.id_Ciencia = Ciencia.Id_Ciencia AND Capacitado.id_Lenguaje = Lenguaje.Id_Lenguaje AND Capacitado.id_Mate = Matematica.id_Mate AND Capacitado.id_Sociales = Sociales.Id_Sociales AND Capacitado.id_Informatica = Informatica.id_Informatica AND Capacitado.id_Idiomas = Idiomas.id_Idiomas AND Capacitado.Id_Perfil = '.$valor);
 
-            $this->db->consultas('SELECT registro_historial_empleos.id_historial as idInformacion,  registro_historial_empleos.empresa as Empresa, puesto.puesto as Puesto, registro_historial_empleos.fecha_de_inicio as Inicio, registro_historial_empleos.fecha_de_finilizacion as Fin, registro_historial_empleos.telefono_de_empresa as Telefono, registro_historial_empleos.dirrecion_empresa as Direccion FROM registro_historial_empleos, puesto WHERE registro_historial_empleos.id_puesto = puesto.id_puesto AND registro_historial_empleos.empresa LIKE "%'.$this->datos['valor'].'%" AND registro_historial_empleos.id_perfil = '.$this->datos['id']);
-            return $this->respuesta = $this->db->obtener_data();
+            $Capacitado = $this->db->obtener_data();
+
+            $this->db->consultas('SELECT Reconocimientos.Especifique FROM Reconocimientos WHERE Reconocimientos.Id_Perfil = '.$valor);
+
+            $Reconocimientos = $this->db->obtener_data();
+            return $this->respuesta = ["Capacitado" => $Capacitado, "Reconocimientos" => $Reconocimientos];
         }
 
         public function traer_para_vselect(){
@@ -157,8 +162,14 @@
             if ( $this->respuesta['msg'] == 'correcto') {
                 
                 if ( $this->datos['accion'] === 'modificar') {
+                    
+                    $this->db->consultas('UPDATE Capacitado SET id_Ciencia='.$this->datos['Ciencia'].', id_Lenguaje='.$this->datos['Lenguaje'].', id_Mate='.$this->datos['Matematica'].', id_Sociales='.$this->datos['Sociales'].', id_Informatica='.$this->datos['Informatica'].', id_Idiomas='.$this->datos['Idiomas'].' WHERE Capacitado.Id_Perfil = '.$this->datos['idInformacion']);
 
-                    $this->db->consultas('UPDATE registro_historial_empleos SET empresa = "'.$this->datos['Empresa'].'", id_puesto = '.$this->datos['Puesto'].', fecha_de_inicio = "'.$this->datos['Inicio'].'", fecha_de_finilizacion = "'.$this->datos['Fin'].'", telefono_de_empresa = "'.$this->datos['Telefono'].'", dirrecion_empresa = "'.$this->datos['Direccion'].'" WHERE registro_historial_empleos.id_historial = '.$this->datos['idInformacion']);
+                    $this->db->consultas('DELETE FROM Reconocimientos WHERE Reconocimientos.Id_Perfil = '.$this->datos['idInformacion']);
+
+                    for ($i=0; $i < count($this->datos['Reconocimientos']); $i++) { 
+                        $this->db->consultas('INSERT INTO Reconocimientos(Id_Perfil, Especifique) VALUES ('.$this->datos['idInformacion'].', "'.$this->datos['Reconocimientos'][$i].'")');
+                    }
 
                     $this->respuesta['msg'] = 'Registro modificado correctamente';
                 }

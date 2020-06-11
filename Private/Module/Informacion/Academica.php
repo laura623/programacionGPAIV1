@@ -73,12 +73,22 @@
                 }
 
             }
-
+ 
         }
 
         public function buscarRegistrarUsuario($valor=''){
-            $this->db->consultas('SELECT imformacion_academica.id_academica as idInformacion, registro_universidad.universidad as Universidad, registro_de_carrera.carrera as Carrera, imformacion_academica.titulo_universitario as Titulo, imformacion_academica.CUM as CUM FROM imformacion_academica, registro_universidad, registro_de_carrera WHERE imformacion_academica.id_universidad = registro_universidad.id_universidad AND imformacion_academica.id_carrera = registro_de_carrera.id_carrera AND imformacion_academica.id_perfil = '. $valor);
-            return $this->respuesta = $this->db->obtener_data();
+            $this->db->consultas('SELECT imformacion_academica.Fecha_Egreso AS Egreso, registro_universidad.universidad AS Universidad, registro_de_carrera.carrera AS Carrera, Nivel_Docente.Nivel_Docente AS NivelDocente, Categoria_Docente.Categoria_Docente AS CategoriaDocente, imformacion_academica.titulo_universitario AS Titulo, imformacion_academica.CUM, imformacion_academica.Postgrado, imformacion_academica.OthersCarreras FROM imformacion_academica, registro_universidad, registro_de_carrera, Nivel_Docente, Categoria_Docente WHERE imformacion_academica.id_universidad = registro_universidad.id_universidad AND imformacion_academica.id_carrera = registro_de_carrera.id_carrera AND imformacion_academica.id_Nivel_Docente = Nivel_Docente.id_Nivel_Docente AND imformacion_academica.Id_Categoria_Docente = Categoria_Docente.id_Categoria_Docente AND imformacion_academica.id_perfil = '. $valor);
+
+            $Academica = $this->db->obtener_data();
+
+            $this->db->consultas('SELECT registro_universidad.universidad AS Universidad, Postgrado.Especifique, Postgrado.Titulo FROM Postgrado, registro_universidad WHERE Postgrado.Id_Universidad = registro_universidad.id_universidad AND Postgrado.Id_Perfil = '. $valor);
+
+            $Postgrado = $this->db->obtener_data();
+
+            $this->db->consultas('SELECT registro_de_carrera.carrera AS Carrera, Otras_Carreras.Titulo FROM Otras_Carreras, registro_de_carrera WHERE Otras_Carreras.Id_Carrera = registro_de_carrera.id_carrera AND Otras_Carreras.Id_Perfil = '. $valor);
+
+            $Carrera = $this->db->obtener_data();
+            return $this->respuesta = ["Academica" => $Academica, "Postgrado" => $Postgrado, "Carrera" => $Carrera];
         }
 
         public function traer_para_vselect(){

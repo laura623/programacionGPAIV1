@@ -62,9 +62,7 @@ new Vue({
             }
             
         },
-        Guardar: function () {
-            
-            this.Informacion.idInformacion = sessionStorage.getItem('IdRegistrado');
+        GetID(){
 
             for (let index = 0; index < this.Universidad.Universidad.length; index++) {
                 if (this.Universidad.Universidad[index] == this.Informacion.Universidad) {
@@ -93,109 +91,177 @@ new Vue({
                 }
                 
             }
-            var estado = this;
+        },
+        GeneratorBlob(input, key){
             let fReader = new FileReader();
-            fReader.readAsDataURL($("#btn_titulo").prop("files")[0]);
+            fReader.readAsDataURL($(input).prop("files")[0]);
             fReader.onloadend = function (event) {
-                estado.Informacion.Titulo = event.target.result
-                estado.Informacion.Postgrado = $("input[name=Postgrado]:checked").val();
-                estado.Informacion.Others = $("input[name=Carrera]:checked").val();
-
-                if ($("input[name=Postgrado]:checked").val() == "No") {
-                    
-                    if ($("input[name=Carrera]:checked").val() == "Si"){
-                        for (let index = 0; index < estado.OthersCarrera.Carrera.length; index++) {
-                            if (estado.OthersCarrera.Carrera[index] == estado.Carreras.Carrera) {
-                                estado.Carreras.Carrera = estado.OthersCarrera.CarreraId[index];
-                            }
-                            
-                        }
-                        let fiRead = new FileReader();
-                        fiRead.readAsDataURL($("#btn_carrera").prop("files")[0]);
-                        fiRead.onloadend = function (ev) {
-                            estado.Carreras.Titulo = ev.target.result;
-                            estado.Informacion.OtraCarrera = estado.Carreras;
-                            Socket.emit('add-Academica', estado.Informacion);
-                            console.log(JSON.stringify(estado.Informacion));
-                            $("#Paginador").load(`Public/Module/Perfil/Opcional/Opcional.html`, function() {
-
-                            }).show("scale", "slow");
-                    
-                            document.getElementById("Paginacion3").className = "activado";
-                            alertify.success("Informacion academica almacena");
-                        }
-                    }
-                    else{
-                        console.log(JSON.stringify(estado.Informacion));
-                        Socket.emit('add-Academica', estado.Informacion);
-                        $("#Paginador").load(`Public/Module/Perfil/Opcional/Opcional.html`, function() {
-
-                        }).show("scale", "slow");
-                
-                        document.getElementById("Paginacion3").className = "activado";
-                        alertify.success("Informacion academica almacena");
-                    }
-                    
-                }
-                else{
-                    for (let index = 0; index < estado.Universidad.Universidad.length; index++) {
-                        if (estado.Universidad.Universidad[index] == estado.Postgrado.Universidad) {
-                            estado.Postgrado.Universidad = estado.Universidad.UniversidadID[index];
-                        }
-                        
-                    }
-                    let FileRead = new FileReader();
-                    FileRead.readAsDataURL($("#btn_postgrado").prop("files")[0]);
-                    FileRead.onloadend = function (e) {
-                        estado.Postgrado.Titulo = e.target.result;
-                        estado.Informacion.Otros = estado.Postgrado;
-                        if ($("input[name=Carrera]:checked").val() == "Si"){
-                            for (let index = 0; index < estado.OthersCarrera.Carrera.length; index++) {
-                                if (estado.OthersCarrera.Carrera[index] == estado.Carreras.Carrera) {
-                                    estado.Carreras.Carrera = estado.OthersCarrera.CarreraId[index];
-                                }
-                                
-                            }
-                            let fiRead = new FileReader();
-                            fiRead.readAsDataURL($("#btn_carrera").prop("files")[0]);
-                            fiRead.onloadend = function (ev) {
-                                estado.Carreras.Titulo = ev.target.result;
-                                estado.Informacion.OtraCarrera = estado.Carreras;
-                                console.log(JSON.stringify(estado.Informacion));
-                                Socket.emit('add-Academica', estado.Informacion);
-                                $("#Paginador").load(`Public/Module/Perfil/Opcional/Opcional.html`, function() {
-
-                                }).show("scale", "slow");
-                        
-                                document.getElementById("Paginacion3").className = "activado";
-                                alertify.success("Informacion academica almacena");
-                            }
-                        }
-                        else{
-                            console.log(JSON.stringify(estado.Informacion));
-                            Socket.emit('add-Academica', estado.Informacion);
-                            
-                            $("#Paginador").load(`Public/Module/Perfil/Opcional/Opcional.html`, function() {
-
-                            }).show("scale", "slow");
-                    
-                            document.getElementById("Paginacion3").className = "activado";
-                            alertify.success("Informacion academica almacena");
-
-                        }
-                    }
+                sessionStorage.setItem(key, event.target.result)
+            }
+        },
+        GetIDCarrera(){
+            for (let index = 0; index < this.OthersCarrera.Carrera.length; index++) {
+                if (this.OthersCarrera.Carrera[index] == this.Carreras.Carrera) {
+                    this.Carreras.Carrera = this.OthersCarrera.CarreraId[index];
                 }
                 
             }
+        },
+        GetIDPostgrado(){
+            for (let index = 0; index < this.Universidad.Universidad.length; index++) {
+                if (this.Universidad.Universidad[index] == this.Postgrado.Universidad) {
+                    this.Postgrado.Universidad = this.Universidad.UniversidadID[index];
+                }
+                    
+            }
+        },
+        Guardar: function () {
+            
+            if (sessionStorage.getItem('DocenteID')) {
 
+                this.Informacion.idInformacion = sessionStorage.getItem('DocenteID');
+                this.GetID();
+
+                if ($("#btn_titulo").prop("files").length != 0) {
+                    this.GeneratorBlob($("#btn_titulo"), 'TituloPrincipal');
+                    
+                }
+
+                if ($("input[name=Carrera]:checked").val() == "Si"){
+                    this.GetIDCarrera();
+                    
+                    if ($("#btn_carrera").prop("files").length != 0) {
+                               
+                        this.GeneratorBlob($("#btn_carrera"), 'CarreraBlob');
+                        
+                    }
+                    
+                    
+                }
+
+                if ($("input[name=Postgrado]:checked").val() == "Si") {
+                    this.GetIDPostgrado()
+
+                    if ($("#btn_postgrado").prop("files").length != 0) {
+                        this.GeneratorBlob($("#btn_postgrado"), 'PostgradoBlob');
+                        
+                    }
+                    
+                          
+                }
+                var estado = this
+                setTimeout( function () {
+                    if ($("#btn_titulo").prop("files").length != 0) {
+                        estado.Informacion.Titulo = sessionStorage.getItem('TituloPrincipal');
+                    }
+                    
+                    estado.Informacion.Postgrado = $("input[name=Postgrado]:checked").val();
+                    estado.Informacion.Others = $("input[name=Carrera]:checked").val();
+
+                    if ($("#btn_carrera").prop("files").length != 0) {
+                               
+                        estado.Postgrado.Titulo = sessionStorage.getItem('PostgradoBlob');
+                        
+                    }
+                    
+                    estado.Informacion.Otros = estado.Postgrado;
+
+                    if ($("#btn_postgrado").prop("files").length != 0) {
+                        estado.Carreras.Titulo = sessionStorage.getItem("CarreraBlob");
+                        
+                    }
+                    
+                    estado.Informacion.OtraCarrera = estado.Carreras;
+
+                    console.log(JSON.stringify(estado.Informacion));
+                    Socket.emit('add-Academica', estado.Informacion);
+                    $("#Paginador").load(`Public/Module/Perfil/Opcional/Opcional.html`, function() {
+
+                    }).show("scale", "slow");
+                        
+                    document.getElementById("Paginacion3").className = "activado";
+                    alertify.success("Informacion academica modificada");
+                }, 1000);
+                
+
+            }
+            else{
+                this.Informacion.idInformacion = sessionStorage.getItem('IdRegistrado');
+                this.GetID();
+
+                this.GeneratorBlob($("#btn_titulo"), 'TituloPrincipal');
+                  
+                if ($("input[name=Carrera]:checked").val() == "Si"){
+                    this.GetIDCarrera();
+                    
+                    this.GeneratorBlob($("#btn_carrera"), 'CarreraBlob');
+                      
+                }
+
+                if ($("input[name=Postgrado]:checked").val() == "Si") {
+                    this.GetIDPostgrado()
+
+                    this.GeneratorBlob($("#btn_postgrado"), 'PostgradoBlob');
+                           
+                }
+                var estado = this
+                setTimeout( function () {
+
+                    estado.Informacion.Titulo = sessionStorage.getItem('TituloPrincipal');
+                    
+                    estado.Informacion.Postgrado = $("input[name=Postgrado]:checked").val();
+                    estado.Informacion.Others = $("input[name=Carrera]:checked").val();
+
+                    if ($("input[name=Carrera]:checked").val() == "Si"){
+                        estado.Carreras.Titulo = sessionStorage.getItem("CarreraBlob");
+                    
+                        estado.Informacion.OtraCarrera = estado.Carreras;
+                    }
+    
+                    if ($("input[name=Postgrado]:checked").val() == "Si") {
+                        estado.Postgrado.Titulo = sessionStorage.getItem('PostgradoBlob');
+                      
+                        estado.Informacion.Otros = estado.Postgrado;  
+                    }
+
+                    console.log(JSON.stringify(estado.Informacion));
+                    Socket.emit('add-Academica', estado.Informacion);
+                                
+                    $("#Paginador").load(`Public/Module/Perfil/Opcional/Opcional.html`, function() {
+
+                    }).show("scale", "slow");
+                        
+                    document.getElementById("Paginacion3").className = "activado";
+                    alertify.success("Informacion academica almacena");
+                }, 1000);
+                
+
+            }
         },
         InformacionDB: function () {
-            fetch(`Private/Module/Informacion/Academica.php?proceso=buscarRegistrarUsuario&RegistrarUsuario=${sessionStorage.getItem('id')}`).then(resp => resp.json()).then( resp => {
-                if (resp.length > 0) {
-                    this.Informacion = resp[0];
-                this.Informacion.accion = 'modificar';
-                $("#imgInp").html("<img id='Blob' src='data:image/jpeg;base64,"+resp[0]['Titulo']+"' width='150px' alt='Titulo'>");
-                }
+            fetch(`Private/Module/Informacion/Academica.php?proceso=buscarRegistrarUsuario&RegistrarUsuario=${sessionStorage.getItem('DocenteID')}`).then(resp => resp.json()).then( resp => {
+                
+                    this.Informacion = resp.Academica[0];
+                    this.Informacion.accion = 'modificar';
+                    $('#btn_titulo').removeAttr("required");
+
+                    if (resp.Academica[0].Postgrado == "Si") {
+                        this.Postgrado = resp.Postgrado[0];
+                        $("#PostgradoSi").prop("checked", true);
+                        $("#Universidad").prop("required", true);
+                        $("#Especifique").prop("required", true);
+                        $("#btn_postgrado").removeAttr("required");
+                        $("#ContenedorPostgrado").show()
+                    }
+                    
+                    if (resp.Academica[0].OthersCarreras == "Si") {
+                        this.Carreras = resp.Carrera[0];
+                        $("#CarreraOtraSi").prop("checked", true);
+                        $("#CarreraContent").prop("required", true);
+                        $("#btn_carrera").removeAttr("required");
+                        $("#ContenedorCarrera").show()
+                    }
+                    this.Datos("Carrera");
             });
         }
 
@@ -203,8 +269,11 @@ new Vue({
     },
     created: function () {
         
-        // this.InformacionDB();
         this.Datos("Universidad");
+
+        if (sessionStorage.getItem('DocenteID')) {
+            this.InformacionDB();
+        }
     }
 
 });

@@ -9,8 +9,9 @@ Socket.on('messages', function (data) {
         }
     });
 
-    
     render(data);
+
+    $.notification(data[data.length - 1].nickname,data[data.length - 1].text, 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Red_triangle_alert_icon.png/200px-Red_triangle_alert_icon.png');
     
 });
 
