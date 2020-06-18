@@ -126,68 +126,9 @@ var appRegistrarUsuario = new Vue({
             appRegistrarUsuario.Genero = resp.Genero;
             appRegistrarUsuario.GeneroId   = resp.IDRegistrarUsuario;
 
-            // console.log(appRegistrarUsuario.Status);
-            // console.log(appRegistrarUsuario.options);
-            
             
         });
 
     }
     
 });
-
-// var appBuscarRegistrarUsuario = new Vue({
-
-//     el:'#frm-buscar-RegistrarUsuario',
-
-//     data:{
-//         RegistrarUsuarioes:[],
-//         valor:''
-//     },
-//     methods:{
-
-//         buscarRegistrarUsuario:function(){
-//             fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=buscarRegistrarUsuario&RegistrarUsuario=${this.valor}`).then(resp=>resp.json()).then(resp=>{
-//                 this.RegistrarUsuarioes = resp;
-//             });
-//         },
-//         modificarRegistrarUsuario:function(RegistrarUsuario){
-
-//                 appRegistrarUsuario.RegistrarUsuario.idRegistrarUsuario = RegistrarUsuario.id_perfil;
-//                 appRegistrarUsuario.RegistrarUsuario.Nombre = RegistrarUsuario.nombres_completos;
-//                 appRegistrarUsuario.RegistrarUsuario.Apellido = RegistrarUsuario.apellidos_completo;
-//                 appRegistrarUsuario.RegistrarUsuario.Genero  = RegistrarUsuario.genero;
-//                 appRegistrarUsuario.RegistrarUsuario.Estatus  = RegistrarUsuario.estatus;
-//                 appRegistrarUsuario.RegistrarUsuario.Fecha  = RegistrarUsuario.fecha_de_nacimiento;
-//                 appRegistrarUsuario.RegistrarUsuario.DUI  = RegistrarUsuario.DUI;
-//                 appRegistrarUsuario.RegistrarUsuario.NIT  = RegistrarUsuario.NIT;
-//                 appRegistrarUsuario.RegistrarUsuario.Usuario  = RegistrarUsuario.usuario;
-//                 appRegistrarUsuario.RegistrarUsuario.Password  = RegistrarUsuario.contraseña;
-//                 appRegistrarUsuario.RegistrarUsuario.accion =  'modificar';
-            
-//         },
-//         verificacionEliminacion:function(idRegistrarUsuario){
-//             alertify.confirm('Alerta', 'Esta seguro de eliminar este registro',function(){
-//                 appBuscarRegistrarUsuario.eliminarRegistrarUsuario(idRegistrarUsuario);
-//                 alertify.success('Registro Eliminado');
-                
-//             }, function() {
-//                 alertify.error('Cancelado');
-                
-//             });
-            
-//         },
-//         eliminarRegistrarUsuario(id){
-//             console.log(id);
-            
-//             fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=eliminarRegistrarUsuario&RegistrarUsuario=${id}`).then(resp=>resp.json()).then(resp=>{
-//                 this.buscarRegistrarUsuario();
-//             });
-//         }
-//     },
-//     created:function(){
-//         this.buscarRegistrarUsuario();
-//     }
-
-    
-// });
