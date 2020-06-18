@@ -26,7 +26,7 @@ document.getElementById("frmLogin").addEventListener("submit", e => {
 })
 
 function irHome(){
-    window.location = '/PruebaSRP/';
+    window.location = '/SRP/';
 }
 
 function Access() {
