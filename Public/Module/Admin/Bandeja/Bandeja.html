@@ -1,0 +1,82 @@
+
+    <link rel="stylesheet" href="Public/CSS/Bandeja.css">
+
+    <div class="Contenedor">
+        <div id="Buscador" class="BuscadorChat">
+            <div class="BuscadorSala">
+                <input type="text" v-model="valor" v-on:keyup="Datos()" name="" placeholder="Ingrese el nombre" id="">
+            </div>
+            <div v-for="User in Usuarios" :key="User.id_Perfil" class="Usuarios">
+                <div v-if="User.msgE > 0" class="Usuario notificar" v-on:click="MostrarChat(User.id_Perfil)">
+                    <div class="ContentUser">
+                        <img :src="User.img" alt="">
+                        <div class="Nombre">
+                            <label for="">{{   User.Nombre   }}</label>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div v-else class="Usuario " v-on:click="MostrarChat(User.id_Perfil)">
+                    <div class="ContentUser">
+                        <img :src="User.img" alt="">
+                        <div class="Nombre">
+                            <label for="">{{   User.Nombre   }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="SalaChat">
+            <div id="messages">
+
+                <div class="message">
+                    <strong>BOT - SRP</strong>
+                    <p>Bienvenido a la bandeja de entrada del SRP</p>
+                </div>
+                <div class="message">
+                    <strong>BOT - SRP</strong>
+                    <p>Selecciona alguno de los usuarios que estan a tu izquierda para empezar con el chat</p>
+                </div>
+    
+            </div>
+    
+            <form id="AddMessage" v-on:submit.prevent="addMessage">
+                <div class="input-group mb-3 text-dark espacio">
+                    
+                    <input type="text" id="text" class="form-control" disabled placeholder="Escribe un mensaje...." aria-label="Example text with two button addons" aria-describedby="button-addon3">
+                    <div class="input-group-prepend shadow " id="button-addon3">
+                        <div id="div_file" class="btn btn-outline-primary">
+                            <p id="texto">Imagen</p>
+                            <input v-on:change="InsertarImagen" disabled type="file" id="btnArchivo">
+                        </div>
+                        <div id="div_file" class="btn btn-outline-success">
+                            <p id="texto"><i class="far fa-paper-plane"></i></p>
+                            <input type="submit" id="btn_enviar" disabled class="btn btn-outline-success rounded-pill" value="">
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- <div class="containerChatWrite">
+                <textarea required id="text" placeholder="Mensaje......"></textarea>
+                <input class="enviarMessage" type="submit" value="">
+                </div> -->
+            </form>
+        </div>
+    </div>
+    
+    <script src="Public/Module/Admin/Bandeja/Bandeja.js"></script>
+    <script>
+  
+        const tx = document.getElementsByTagName('textarea');
+        for (let i = 0; i < tx.length; i++) {
+          tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+          tx[i].addEventListener("input", OnInput, false);
+        }
+  
+        function OnInput() {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        }
+        var objDiv = document.getElementById("messages");
+        objDiv.scrollTop = objDiv.scrollHeight;
+      </script>

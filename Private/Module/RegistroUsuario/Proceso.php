@@ -125,12 +125,12 @@
         }
 
         public function buscarUsuarioMSGR ($valor =''){
-            $this->db->consultas('SELECT registro_cuenta_usuario.msgR FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.id_perfil = '. $valor);
+            $this->db->consultas('SELECT perfil_de_usuario.msgR FROM perfil_de_usuario WHERE perfil_de_usuario.id_Perfil = '. $valor);
             return $this->respuesta = $this->db->obtener_data();
         }
 
         public function buscarUsuarioMSGE ($valor =''){
-            $this->db->consultas('SELECT registro_cuenta_usuario.id_perfil, registro_cuenta_usuario.nombres_completos, registro_cuenta_usuario.msgE FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.nombres_completos LIKE "%'.$valor.'%" ORDER BY registro_cuenta_usuario.msgE DESC');
+            $this->db->consultas('SELECT perfil_de_usuario.id_Perfil, perfil_de_usuario.Nombre, perfil_de_usuario.img, perfil_de_usuario.msgE, perfil_de_usuario.DIa_Hora FROM perfil_de_usuario WHERE perfil_de_usuario.Nombre LIKE "%'. $valor.'%" ORDER BY perfil_de_usuario.DIa_Hora DESC');
             return $this->respuesta = $this->db->obtener_data();
         }
 
@@ -142,17 +142,17 @@
         public function validarUsuario(){
             $this->db->consultas('SELECT registro_cuenta_usuario.id_perfil, registro_cuenta_usuario.nombres_completos FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.usuario = "'.$this->datos['Usuario'].'" AND registro_cuenta_usuario.contraseña = "'.$this->datos['Password'].'"');
 
+            $Access = "Admin";
+
             $Usuario = $this->db->obtener_data();
 
-            // $imprimirUsuario = '';
-            // $imprimirUsuarioId = '';
-
-            // for ($i=0; $i < count($Usuario); $i++) { 
-            //     $imprimirUsuario = $Usuario[$i]['nombres_completos'];
-            //     $imprimirUsuarioId = $Usuario[$i]['id_perfil'];
-            // }
-
-            return $this->respuesta = ["nombre" => $Usuario, "cont" => count($Usuario)];
+            if ( count($Usuario) < 1) {
+                $this->db->consultas('SELECT perfil_de_usuario.id_Perfil as id_perfil, perfil_de_usuario.Nombre as nombres_completos FROM perfil_de_usuario WHERE perfil_de_usuario.Usuario = "'.$this->datos['Usuario'].'" AND perfil_de_usuario.Pass = "'.$this->datos['Password'].'"');
+                $Usuario = $this->db->obtener_data();
+                $Access = 'Cliente';
+            } 
+            
+            return $this->respuesta = ["nombre" => $Usuario, "cont" => count($Usuario), "Accesso" => $Access];
         }
 
         public function traer_para_vselect(){
@@ -187,14 +187,14 @@
             return $this->respuesta = $this->db->obtener_data();
         }
 
-        public function eliminarRegistrarUsuario($idRegistrarUsuario=''){
+        public function eliminarRegistrarUsuario($idRegistrarUsuario){
             $this->EliminarCapacitado($idRegistrarUsuario);
             $this->EliminarAcademica($idRegistrarUsuario);
             $this->EliminarOtraCarrera($idRegistrarUsuario);
             $this->EliminarPerfilUsuario($idRegistrarUsuario);
             $this->EliminarPostgrado($idRegistrarUsuario);
             $this->EliminarReconocimientos($idRegistrarUsuario);
-            $this->respuesta['msg'] = 'Registro eliminado correctamente';
+            $this->respuesta['msg'] = 'Proceso Cancelado';
         }
 
         public function EliminarReconocimientos($idRegistrarUsuario)
@@ -246,28 +246,29 @@
 
         public function EliminarSMGR($id = '')
         {
-            $this->db->consultas('UPDATE registro_cuenta_usuario SET msgR= 0 WHERE registro_cuenta_usuario.id_perfil = '.$id);
+            $this->db->consultas('UPDATE perfil_de_usuario SET msgR= 0 WHERE perfil_de_usuario.id_Perfil = '.$id);
 
             $this->respuesta['msg'] = 'Registro modificado correctamente';
         }
 
         public function EliminarSMGE($id = '')
         {
-            $this->db->consultas('UPDATE registro_cuenta_usuario SET msgE = 0 WHERE registro_cuenta_usuario.id_perfil = '.$id);
+            $this->db->consultas('UPDATE perfil_de_usuario SET msgE = 0 WHERE perfil_de_usuario.id_Perfil = '.$id);
 
             $this->respuesta['msg'] = 'Registro modificado correctamente';
         }
 
-        public function AgregarSMGR($id = '')
+        public function AgregarSMGR($Valores)
         {
-            $this->db->consultas('UPDATE registro_cuenta_usuario SET msgR= msgR + 1 WHERE registro_cuenta_usuario.id_perfil = '.$id);
+            $this->datos = json_decode($Valores, true);
+            $this->db->consultas('UPDATE perfil_de_usuario SET msgR= msgR + 1, DIa_Hora = "'.$this->datos['date'].'" WHERE perfil_de_usuario.id_Perfil = '.$this->datos['id']);
 
             $this->respuesta['msg'] = 'Registro modificado correctamente';
         }
 
         public function AgregarSMGE($id = '')
         {
-            $this->db->consultas('UPDATE registro_cuenta_usuario SET msgE = msgE + 1 WHERE registro_cuenta_usuario.id_perfil = '.$id);
+            $this->db->consultas('UPDATE perfil_de_usuario SET msgE = msgE + 1 WHERE perfil_de_usuario.id_Perfil = '.$id);
 
             $this->respuesta['msg'] = 'Registro modificado correctamente';
         }

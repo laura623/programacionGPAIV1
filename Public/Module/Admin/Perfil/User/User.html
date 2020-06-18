@@ -1,0 +1,45 @@
+<div class="card bg-light mb-3" style="width: 28rem;">
+    <div class="card-header">USUARIO Y CONTRASEÑA</div>
+    <div class="card-body">
+      <form method="get" id="frmUser" class="text-left" v-on:submit.prevent="Guardar">
+            <p>Asigne un usuario y una contraseña al docente.</p>
+            <div class="row p-2">
+                <div class="col-5">
+                    Usuario:
+                </div>
+                <div class="col-7">
+                    <input type="text" name="" required minlength="3" maxlength="8" v-model="User.Usuario" placeholder="CodeMaster123" class="form-control" id="User">
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5">
+                    Contraseña:
+                </div>
+                <div class="col-7">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                        <div class="input-group-text" id="btnGroupAddon"><i id="password" v-on:click="pass()" data-accion="hide" style="cursor: pointer;" class="fas fa-lock"></i></div>
+                        </div>
+                        <input id="pass" v-model="User.Password" required minlength="3" maxlength="8" type="password" class="form-control" placeholder="*****" aria-label="Ingrese su contraseña" aria-describedby="btnGroupAddon">
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5"></div>
+                <div class="col-7">
+                    <input type="button" class="btn bg-primary text-white form-control" v-on:click="generarPassword" value="Generar">
+                </div>
+            </div>
+            <div class="row p-2"> 
+                <div class="col-12 text-center flex">
+                    <input type="button" v-on:click="Retroceder" class="Mover btn btn-primary text-white" value="Anterior">
+                    <input type="button" v-on:click="Cancelar" class="btn btn-danger text-white" value="Cancelar">
+                    <input type="submit" class="btn btn-success text-white" value="Continuar">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="Public/Module/Admin/Perfil/User/User.js"></script>

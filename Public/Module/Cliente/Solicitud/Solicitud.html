@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="Public/CSS/Solicitud.css">
+<div class="Contenedor">
+    <div class="card bg-light mb-3" style="width: 28rem;">
+        <div class="card-header">SOLICITUD DE REGISTRO</div>
+        <div class="card-body">
+    
+            <form method="POST" v-on:submit.prevent="Agregar" id="frmSolicitud" style="width: 100%;">
+                <div class="row p-2">
+                    <div class="col-">
+                        Educacion Parvularia
+                    </div>
+                    <div class="col-4">
+                        <input type="text" v-model="solicitud.Parvularia" placeholder="Nombre de la institucion" >
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Educacion Basica
+                    </div>
+                    <div class="col-6">
+                        <input type="text" v-model="solicitud.Basica" name="" placeholder="Nombre de la institucion" id="">
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-">
+                        Eduacion Media
+                    </div>
+                    <div class="col-6">
+                        <input type="text" v-model="solicitud.Media" name="" placeholder="Nombre de la institucion" id="">
+                    </div>
+                </div>
+                <div class="row p-2"> 
+                    <div class="col-12 text-center">
+                        <input type="submit" class="btn btn-success text-white" value="Registrar">
+                        
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<script src="Public/Module/Cliente/Solicitud/Solicitud.js"></script>

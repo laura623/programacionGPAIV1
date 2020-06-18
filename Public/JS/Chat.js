@@ -1,17 +1,14 @@
 var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
 
 Socket.on('messages', function (data) {
-    console.log(JSON.stringify(data));
-    fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=buscarUsuarioMSGR&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
-        console.log(resp[0].msgR);
-        if (resp[0].msgR > 0) {
-            $("#iconChat").addClass("msgRecivido");
-        }
-    });
+    console.log(data[data.length - 1].nickname);
 
     render(data);
 
-    $.notification(data[data.length - 1].nickname,data[data.length - 1].text, 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Red_triangle_alert_icon.png/200px-Red_triangle_alert_icon.png');
+    if (data[data.length - 1].nickname == "SRP") {
+        $.notification(data[data.length - 1].nickname,data[data.length - 1].text, 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Red_triangle_alert_icon.png/200px-Red_triangle_alert_icon.png');
+        $("#iconChat").addClass("msgRecivido");
+    }
     
 });
 
@@ -91,14 +88,16 @@ function addMessage(e) {
         text: document.getElementById('text').value
     };
 
-    Socket.emit('add-message', message);
     fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGE&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
         
     });
+
     fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=EliminarSMGR&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
         
     });
 
+    Socket.emit('add-message', message);
+    
     $("#iconChat").removeClass("msgRecivido");
     
     return false;

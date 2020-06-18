@@ -5,12 +5,33 @@ var Express = require('express'),
     MongoClient = require('mongodb').MongoClient,
     url = 'mongodb://localhost:27017',
     dbName = 'ChatSRP',
-    mysql = require('mysql');;
+    mysql = require('mysql');
 
+    const webpush = require('web-push');
+    const e = require('express');
+    const { error } = require('console');
+    
+    const Keys = {
+        PublicKey: "BJuxZAK2tVrr8RwN3OTELQynIh2xKTb52XHyUBg1iIM4H_DW0Lse9Jwwd8_bRygGZXv5e4yNzh-ch7Eu4_9Reew",
+        PrivateKey: "ImEet5eeKW5dj6K7Li68NLdtxqwaV99es7RNvoG1XEc"
+    }
+    
+    webpush.setVapidDetails(
+        "mailto:johanssonr638@gmail.com",
+        Keys.PublicKey,
+        Keys.PrivateKey
+    );
+    
+    let pushSubscripton;
 
 IO.on('connection', function (socket) {
     console.log("El cliente con IP: " + socket.handshake.address+ " se ha conectado...");
     console.log(socket.handshake.query.id); 
+
+    socket.on('Suscribirse', function(data){
+        pushSubscripton = data;
+        console.log(pushSubscripton);
+    })
 
 
     MongoClient.connect(url, function (err, client) {
@@ -23,7 +44,7 @@ IO.on('connection', function (socket) {
     });
 
     socket.on('add-message', function (data) {
-    
+        let message = data.text, usuario = data.nickname;
         MongoClient.connect(url, function (err, client) {
             const db = client.db(dbName);
             
@@ -32,6 +53,14 @@ IO.on('connection', function (socket) {
 
             db.collection(`ChatCollect${socket.handshake.query.id}`).find({}).toArray(function (err,msg) {
                 IO.sockets.emit('messages', msg);
+                const payload = JSON.stringify({
+                    title: usuario,
+                    message
+                });
+                
+                console.log(JSON.stringify(pushSubscripton));
+                
+                webpush.sendNotification(pushSubscripton, payload).catch(e => console.error(e));
             });
     
         });
@@ -160,7 +189,7 @@ IO.on('connection', function (socket) {
          console.log(data.accion);
          
          if (data.accion == "nuevo") {
-            var query = connection.query('INSERT INTO perfil_de_usuario(Nombre, Fecha_Nacimiento, DUI, id_estatus, id_genero, id_Departamento, id_Municipio, id_Zona, Direccion, Celular, Correo, img) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [data.Nombre, data.Nacimiento, data.DUI, data.Estado, data.Genero, data.Departamento, data.Municipio, data.Zona, data.Direccion, data.Telefono, data.Correo, data.img], function(error, result){
+            var query = connection.query('INSERT INTO perfil_de_usuario(Nombre, Fecha_Nacimiento, DUI, id_estatus, id_genero, id_Departamento, id_Municipio, id_Zona, Direccion, Celular, Correo, img, msgE, msgR) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [data.Nombre, data.Nacimiento, data.DUI, data.Estado, data.Genero, data.Departamento, data.Municipio, data.Zona, data.Direccion, data.Telefono, data.Correo, data.img,0,0], function(error, result){
                 if(error){
                    throw error;
                 }else{

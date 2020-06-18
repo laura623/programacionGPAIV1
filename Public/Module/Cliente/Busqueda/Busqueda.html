@@ -1,0 +1,124 @@
+
+<script src="https://kit.fontawesome.com/d86c9a1724.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="Public/CSS/Busqueda.css">
+
+<div class="Contenedor">
+
+    <div class="card bg-light mb-3" style="width: 60rem;" id="frmBusqueda">
+
+        <div class="card-header">BUSQUEDA DE PERFILES</div>
+
+        <div class="card-body">
+
+            <div class="card-text">Para realizar la búsqueda, complete uno o varios de los siguientes criterios </div>
+
+            <div class="row p-2 border border-dark">
+                <div class="col-9">
+                    <div class="Buscador">
+
+                        <div class="row p-2">
+                            <div class="col-3" style="padding-top: 10px;">
+                                Nombre:
+                            </div>
+                            <div class="col-7">
+                                <input type="text" v-model="valor.Nombre" class="form-control" style="width: 26rem;" v-on:keyup="buscarRegistrarUsuario" placeholder="Juan Alfredo Gutierrez Carranza" >
+                            </div>
+                        </div>
+        
+                        <div class="row p-2">
+                            <div class="col-3" style="padding-top: 10px;">
+                                Carrera:
+                            </div>
+                            <div class="col-7">
+                                <input type="text" v-model="valor.Carrera" class="form-control" style="width: 26rem;" v-on:keyup="buscarRegistrarUsuario" placeholder="Lic. en idioma ingles" >
+                            </div>
+                        </div>
+        
+                        <div class="grupoBusqueda">
+                            <label for="">Edad:</label> <input class="GrupoItems form-control" type="number" v-model="valor.Edad" v-on:keyup="buscarRegistrarUsuario" name="" id="">
+                            <label for="">Fecha de Egreso:</label> <input class="GrupoItems form-control" v-model="valor.Egreso" v-on:change="buscarRegistrarUsuario" type="date" name="" id="">
+                        </div>
+        
+                        <div class="grupoBusqueda">
+                            <label for="">Nivel:</label> <input class="GrupoItems form-control" type="text" v-model="valor.Nivel" v-on:keyup="buscarRegistrarUsuario" name="" id="">
+                            <label for="">Categoría:</label> <input class="GrupoItems form-control" style="width: 14rem;" v-on:keyup="buscarRegistrarUsuario" v-model="valor.Categoria" type="text" name="" id="">
+                        </div>
+        
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="div_file">
+                        <p id="texto">Limpiar</p>
+                        <input type="button" v-on:click="Limpiar" id="btn_enviar">
+                    </div>
+                </div>
+            </div>  
+            <div class="Tarjetas border border-dark bg-primary">
+                <div class="card-text">RESULTADOS O MENSAJE DE NO SE ECUENTRAN RESULTADOS</div>
+
+                <div class="Alerta" v-if="RegistrarUsuarioes.length > 0">
+                    <div class="ContenedorTarjetas" v-if="RegistrarUsuarioes.length > 0" v-for="usuario in RegistrarUsuarioes" :key="usuario.id_perfil">
+                        <div class="card mb-3 " style="width: 100%; height: 200px;">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img :src="usuario.img" height="200px" class="card-img" alt="Foto de perfil">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><strong>{{ usuario.Nombre }}</strong></h5>
+                                        <div class="row p-2">
+                                            <div class="col-5">
+                                                Carrera:
+                                            </div>
+                                            <div class="col-6">
+                                                <strong>{{usuario.carrera}}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="grupoBusqueda" style="margin-left: 14%;">
+                                            <label for="">Edad: </label> <p class="GrupoItems"> <strong>{{usuario.Fecha_Nacimiento}}</strong></p>
+                                            <label style="width: 50%;" for="">Año de Egreso: </label> <p class="GrupoItems"> <strong>{{usuario.Fecha_Egreso}}</strong></p>
+                                        </div>
+                                        <div class="grupoBusqueda" style="margin-left: 14%;">
+                                            <label for="">Nivel: </label> <p class="GrupoItems"> <strong>{{usuario.Nivel_Docente}}</strong></p>
+                                            <label  for="">Categoria: </label> <p class="GrupoItems"> <strong>{{usuario.Categoria_Docente}}</strong></p>
+                                        </div>
+                                        <!-- <div class="butonRigth">
+                                            <div id="div_button">
+                                                <p id="texto">ELIMINAR</p>
+                                                <input type="button" v-on:click="verificacionEliminacion(usuario.id_Perfil)" id="btn_eliminar">
+                                            </div>
+                                            <div id="div_buttonEditar">
+                                                <p id="texto">EDITAR</p>
+                                                <input type="button" v-on:click="editarDocente(usuario.id_Perfil)" id="btn_editar">
+                                            </div>
+                                        </div> -->
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Alerta" v-else>
+                    <!-- <div class="card text-center" style="width: 90%;">
+                        <div class="card-header">
+                          Featured
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Special title treatment</h5>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                          2 days ago
+                        </div>
+                      </div> -->
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script src="Public/Module/Cliente/Busqueda/Busqueda.js"></script>

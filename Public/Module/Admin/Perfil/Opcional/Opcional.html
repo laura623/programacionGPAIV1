@@ -1,0 +1,137 @@
+<style>
+    .Reconocimientos{
+        margin-top: 10px;
+    }
+</style>
+<div class="card bg-light mb-3" style="width: 28rem;">
+    <div class="card-header">INFORMACION OPCIONAL</div>
+    <div class="card-body">
+      <form method="get" id="frmOpcional" class="text-left" v-on:submit.prevent="Guardar">
+          <p>Seleccione las materias en la que esta capacitado para impartir.</p>
+        <div class="row p-2">
+            <div class="col-5">
+                Ciencia:
+            </div>
+            <div class="col-7">
+                <v-select placeholder="Seleccione la materia" v-model="Informacion.Ciencia" :options="Ciencia.Ciencia">
+                    <template #search="{attributes, events}">
+                        <input
+                          class="vs__search"
+                          :required="!Informacion.Ciencia"
+                          v-bind="attributes"
+                          v-on="events"
+                        />
+                    </template>
+                </v-select>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col-5">
+                Lenguaje:
+            </div>
+            <div class="col-7">
+                <v-select placeholder="Seleccione la materia" v-model="Informacion.Lenguaje" :options="Lenguaje.Lenguaje">
+                    <template #search="{attributes, events}">
+                        <input
+                          class="vs__search"
+                          :required="!Informacion.Lenguaje"
+                          v-bind="attributes"
+                          v-on="events"
+                        />
+                    </template>
+                </v-select>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col-5">
+                Matematica:
+            </div>
+            <div class="col-7">
+                <v-select placeholder="Seleccione la materia" v-model="Informacion.Matematica" :options="Matematica.Matematica">
+                    <template #search="{attributes, events}">
+                        <input
+                          class="vs__search"
+                          :required="!Informacion.Matematica"
+                          v-bind="attributes"
+                          v-on="events"
+                        />
+                    </template>
+                </v-select>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col-5">
+                Est. Sociales:
+            </div>
+            <div class="col-7">
+                <v-select placeholder="Seleccione la materia" v-model="Informacion.Sociales" :options="Sociales.Sociales">
+                    <template #search="{attributes, events}">
+                        <input
+                          class="vs__search"
+                          :required="!Informacion.Sociales"
+                          v-bind="attributes"
+                          v-on="events"
+                        />
+                    </template>
+                </v-select>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col-5">
+                Informatica:
+            </div>
+            <div class="col-7">
+                <v-select placeholder="Seleccione la materia" v-model="Informacion.Informatica" :options="Informatica.Informatica">
+                    <template #search="{attributes, events}">
+                        <input
+                          class="vs__search"
+                          :required="!Informacion.Informatica"
+                          v-bind="attributes"
+                          v-on="events"
+                        />
+                    </template>
+                </v-select>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col-5">
+                Idiomas:
+            </div>
+            <div class="col-7">
+                <v-select placeholder="Seleccione la materia" v-model="Informacion.Idiomas" :options="Idiomas.Idiomas">
+                    <template #search="{attributes, events}">
+                        <input
+                          class="vs__search"
+                          :required="!Informacion.Idiomas"
+                          v-bind="attributes"
+                          v-on="events"
+                        />
+                    </template>
+                </v-select>
+            </div>
+        </div>
+        <strong><p>Añanada los Reconocimientos que considere:</p></strong>
+        
+        <div class="row p-2">
+            <div class="col-5">
+                Reconocimientos obtenidos:
+            </div>
+            <div class="col-7">
+                <input type="text" name="Reconocimiento" placeholder="Especifique" class="form-control" id="Reco1">
+                <input type="text" name="Reconocimiento" placeholder="Especifique" class="form-control Reconocimientos" id="Reco2">
+                <input type="text" name="Reconocimiento" placeholder="Especifique" class="form-control Reconocimientos" id="Reco3">
+            </div>
+        </div>
+        <div class="row p-2"> 
+            <div class="col-12 text-center flex">
+                <input type="button" v-on:click="Retroceder" class="btn btn-primary text-white" value="Anterior">
+                <input type="button" v-on:click="Cancelar" class="btn btn-danger text-white" value="Cancelar">
+                <input type="submit" class="btn btn-success text-white" value="Continuar">
+                <input type="button" v-on:click="Cambiar" class="btn btn-primary text-white" value="Saltar >>">
+            </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+<script src="Public/Module/Admin/Perfil/Opcional/Opcional.js"></script>

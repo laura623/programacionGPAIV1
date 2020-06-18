@@ -23,10 +23,11 @@
     overflow-y: scroll;
 }
 .BuscadorChat .Usuario{
+    display: flex;
     margin-top: 20px;
     width: 100%;
     background: #fff;
-    height: 40px;
+    height: 10%;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -170,4 +171,21 @@ input#btn_enviar{
 	width:100%;
 	height:100%;
 	opacity: 0;
+}
+.ContentUser{
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+}
+
+.ContentUser img{
+    max-width: 40%;
+    border-radius: 10px;
+    margin-right: 5px;
+}
+
+.ContentUser .Nombre{
+    cursor: pointer;
+    padding-top: 5%;
+    width: 100%;
 }

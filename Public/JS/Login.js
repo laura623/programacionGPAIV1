@@ -26,7 +26,7 @@ document.getElementById("frmLogin").addEventListener("submit", e => {
 })
 
 function irHome(){
-    window.location = '/SRP/';
+    window.location = '/PruebaSRP/';
 }
 
 function Access() {
@@ -45,6 +45,8 @@ function Access() {
 			
 			sessionStorage.setItem('nombre',resp.nombre[0]['nombres_completos']);
 			sessionStorage.setItem('id',resp.nombre[0]['id_perfil']);
+			sessionStorage.setItem('access', resp.Accesso);
+			
 			irHome();
 		}
 		else if (resp.cont ==0){

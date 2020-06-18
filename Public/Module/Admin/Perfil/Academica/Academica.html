@@ -1,0 +1,301 @@
+<style>
+    p#texto{
+        text-align: center;
+        color:white;
+    }
+
+    div#div_file{
+        position:relative;
+        width:150px;
+        height: 20px;
+        margin-right: 15px;
+        background-color: #2499e3;
+    }
+
+    input#btn_titulo{
+        position:absolute;
+        top:0px;
+        left:0px;
+        right:0px;
+        bottom:0px;
+        width:100%;
+        height:100%;
+        opacity: 0;
+    }
+    input#btn_postgrado{
+        position:absolute;
+        top:0px;
+        left:0px;
+        right:0px;
+        bottom:0px;
+        width:100%;
+        height:100%;
+        opacity: 0;
+    }
+    input#btn_carrera{
+        position:absolute;
+        top:0px;
+        left:0px;
+        right:0px;
+        bottom:0px;
+        width:100%;
+        height:100%;
+        opacity: 0;
+    }
+    .flexible{
+        display: flex;
+    }
+</style>
+<div class="card bg-light mb-3" style="width: 28rem;">
+    <div class="card-header">INFORMACION ACADEMICA</div>
+    <div class="card-body text-left">
+        <form method="get" v-on:submit.prevent="Guardar" id="frmAcademica" >
+            <div class="row p-2">
+                <div class="col-5">
+                    Año de Egreso:
+                </div>
+                <div class="col-7">
+                    <input type="date" v-model="Informacion.Egreso" class="form-control" required>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5">
+                    Universidad:
+                </div>
+                <div class="col-7">
+                    
+                    <select name="" required v-on:change="Datos('Carrera')" id="Universidad"  class="form-control" v-model="Informacion.Universidad" >
+                        <option v-for="Uni in Universidad.Universidad" :value="Uni">{{Uni}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5">
+                    Carrera:
+                </div>
+                <div class="col-7">
+                    <v-select v-model="Informacion.Carrera" style="width: 100%;" class="style-chooser" placeholder="Carrera" :options="Carrera.Carrera">
+                        <template #search="{attributes, events}">
+                            <input
+                              class="vs__search"
+                              :required="!Informacion.Carrera"
+                              v-bind="attributes"
+                              v-on="events"
+                            />
+                        </template>
+                    </v-select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5">
+                    Nivel Docente:
+                </div>
+                <div class="col-7">
+                    <v-select v-model="Informacion.NivelDocente" style="width: 100%;" class="style-chooser" placeholder="Nivel Docente" :options="NivelDocente.NivelDocente">
+                        <template #search="{attributes, events}">
+                            <input
+                              class="vs__search"
+                              :required="!Informacion.NivelDocente"
+                              v-bind="attributes"
+                              v-on="events"
+                            />
+                        </template>
+                    </v-select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5">
+                    Categoría Docente:
+                </div>
+                <div class="col-7">
+                    <v-select v-model="Informacion.CategoriaDocente" style="width: 100%;" class="style-chooser" placeholder="Categoria" :options="CategoriaDocente.Categoria">
+                        <template #search="{attributes, events}">
+                            <input
+                              class="vs__search"
+                              :required="!Informacion.CategoriaDocente"
+                              v-bind="attributes"
+                              v-on="events"
+                            />
+                        </template>
+                    </v-select>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5">
+                    CUM
+                </div>
+                <div class="col-7">
+                    <input v-model="Informacion.CUM" required maxlength="4" minlength="1" min="7" max="10" type="number" placeholder="10" >
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5" style="margin-top: 5%;">
+                    Titulo Universitario:
+                </div>
+                <div class="col-7 text-left">
+                    <div class="flexible">
+
+                        <div id="div_file" style="margin-top: 10%;">
+                            <p id="texto">Subir foto</p>
+                            <input required type="file" id="btn_titulo">
+                        </div>
+                        <p class="text-danger" style="font-size: 12px;">Cargue una imagen de su titulo. <br> Asegúrese que sea con buena calidad.</p>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-5">
+                    Posee Postgrado:
+                </div>
+                <div class="col-7">
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="PostgradoSi">Si</label>
+                        <input class="form-check-input" style="margin-left: 10px;" type="radio" name="Postgrado" id="PostgradoSi" value="Si">
+                            
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="PostgradoNo">No</label>
+                        <input class="form-check-input" style="margin-left: 10px;" checked type="radio" name="Postgrado" id="PostgradoNo" value="No">
+                            
+                    </div>
+                </div>
+            </div>
+            <div id="ContenedorPostgrado" style="display: none;">
+                <div class="row p-2">
+                    <div class="col-5">
+                        Universidad:
+                    </div>
+                    <div class="col-7">
+                        
+                        <select name="" id="Universidad"  class="form-control" v-model="Postgrado.Universidad" >
+                            <option v-for="Uni in Universidad.Universidad" :value="Uni">{{Uni}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-5">
+                        Especifique:
+                    </div>
+                    <div class="col-7">
+                        <input  type="text" minlength="1" maxlength="100" v-model="Postgrado.Especifique" name="" placeholder="Nombre del Postgrado" id="Especifique">
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-5" style="margin-top: 5%;">
+                        Titulo Universitario:
+                    </div>
+                    <div class="col-7 text-left">
+                        <div class="flexible">
+    
+                            <div id="div_file" style="margin-top: 10%;">
+                                <p id="texto">Subir foto</p>
+                                <input type="file" id="btn_postgrado">
+                            </div>
+                            <p class="text-danger" style="font-size: 12px;">Cargue una imagen de su titulo. <br> Asegúrese que sea con buena calidad.</p>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row p-2">
+                <div class="col-5">
+                    <strong><p>Si posee otra/s carrera/s:</p></strong>
+                </div>
+                <div class="col-7">
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="CarreraOtraSi">Si</label>
+                        <input class="form-check-input" style="margin-left: 10px;" type="radio" name="Carrera" id="CarreraOtraSi" value="Si">
+                            
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="CarreraOtraNo">No</label>
+                        <input class="form-check-input" style="margin-left: 10px;" checked type="radio" name="Carrera" id="CarreraOtraNo" value="No">
+                            
+                    </div>
+                </div>
+            </div>
+            <div id="ContenedorCarrera" style="display: none;">
+                <div class="row p-2">
+                    <div class="col-5">
+                        Carrera:
+                    </div>
+                    <div class="col-7">
+                        <v-select id="CarreraContent" v-model="Carreras.Carrera" style="width: 100%;" class="style-chooser" placeholder="Carrera" :options="OthersCarrera.Carrera">
+                            <template #search="{attributes, events}">
+                                <input
+                                  class="vs__search"
+                                  :required="!Carrera.Carrera"
+                                  v-bind="attributes"
+                                  v-on="events"
+                                />
+                            </template>
+                        </v-select>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-5" style="margin-top: 5%;">
+                        Titulo Universitario:
+                    </div>
+                    <div class="col-7 text-left">
+                        <div class="flexible">
+    
+                            <div id="div_file" style="margin-top: 10%;">
+                                <p id="texto">Subir foto</p>
+                                <input  type="file" id="btn_carrera">
+                            </div>
+                            <p class="text-danger" style="font-size: 12px;">Cargue una imagen de su titulo. <br> Asegúrese que sea con buena calidad.</p>
+                            
+                        </div>
+                        
+                    </div>
+                </div> 
+            </div>
+                
+            <div class="row p-2"> 
+                <div class="col-12 text-center flex">
+
+                    <input type="button" v-on:click="Retroceder" class="Mover btn btn-primary text-white" value="Anterior">
+                    <input type="button" v-on:click="Cancelar" class="btn btn-danger text-white" value="Cancelar">
+                    <input type="submit" class="btn btn-success text-white" value="Continuar">
+                    <input type="button" v-on:click="Avanzar" class="Mover Avanzar btn btn-primary text-white" value="Siguiente">
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="Public/Module/Admin/Perfil/Academica/Academica.js"></script>
+<script>
+    $("input[name=Postgrado]").change(function () {	 
+		if ($(this).val() == "Si") {
+            $("#Universidad").prop("required", true);
+            $("#Especifique").prop("required", true);
+            $("#btn_postgrado").prop("required", true);
+            $("#ContenedorPostgrado").show()
+        }
+        else{
+            $("#Universidad").removeAttr("required");
+            $("#Especifique").removeAttr("required");
+            $("#btn_postgrado").removeAttr("required");
+            $("#ContenedorPostgrado").hide()
+        }
+    });
+    $("input[name=Carrera]").change(function () {	 
+		if ($(this).val() == "Si") {
+            $("#CarreraContent").prop("required", true);
+            $("#btn_carrera").prop("required", true);
+            $("#ContenedorCarrera").show()
+        }
+        else{
+            $("#CarreraContent").removeAttr("required");
+            $("#btn_carrera").removeAttr("required");
+            $("#ContenedorCarrera").hide()
+        }
+	});
+ 
+</script>

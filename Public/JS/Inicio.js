@@ -22,7 +22,7 @@ $( "[class*='navegacion']" ).click(function() {
   $("#ContenedorPrincipal").hide("fold", "slow");
 
   setTimeout(function () {
-	$("#ContenedorPrincipal").load(`PUBLIC/Module/${Modulo}/${Modulo}.html`, function() {
+	$("#ContenedorPrincipal").load(`PUBLIC/Module/Admin/${Modulo}/${Modulo}.html`, function() {
 	
 	}).show("scale", "slow");
   },1500);
