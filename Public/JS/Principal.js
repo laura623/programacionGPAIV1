@@ -2,7 +2,7 @@ function cerrarSesion(){
     alertify.confirm('Alerta', '¿Está seguro de cerrar esta sesión?',function(){
         
         sessionStorage.clear();
-        window.location = '../PruebaSRP/';    
+        window.location = '../SRP/';    
         
     }, function() {
         alertify.error('Cancelado');
