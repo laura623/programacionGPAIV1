@@ -26,7 +26,7 @@ document.getElementById("frmLogin").addEventListener("submit", e => {
 })
 
 function irHome(){
-    window.location = '/SRP/';
+    window.location = '/PruebaSRP/';
 }
 
 function Access() {
@@ -46,8 +46,34 @@ function Access() {
 			sessionStorage.setItem('nombre',resp.nombre[0]['nombres_completos']);
 			sessionStorage.setItem('id',resp.nombre[0]['id_perfil']);
 			sessionStorage.setItem('access', resp.Accesso);
+
+			if (resp.Accesso != "Admin") {
+				var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
+
+				Socket.emit("ClienteAdentro");
+				let day = new Date()
+				let fechaActual = day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate();
+				
+				fetch(`Private/Module/Grafico/Proceso.php?proceso=BuscarExistencia&Grafico=${fechaActual}`).then(res => res.json()).then(res =>{
+					if (res.msg > 0) {
+						console.log("Entre");
+						
+						fetch(`Private/Module/Grafico/Proceso.php?proceso=ModificarDatos&Grafico=${fechaActual}`).then(respuesta => respuesta.json()).then(respuesta =>{
+							irHome();
+						})
+					} else {
+						
+						fetch(`Private/Module/Grafico/Proceso.php?proceso=CrearNuevaFecha&Grafico=${fechaActual}`).then(respuesta => respuesta.json()).then(respuesta =>{
+							irHome();
+						})
+					}
+				})
+
+			}
+			else{
+				irHome()
+			}
 			
-			irHome();
 		}
 		else if (resp.cont ==0){
 

@@ -168,6 +168,12 @@ IO.on('connection', function (socket) {
          }
          connection.end();
     })
+    socket.on('ClienteAdentro', function () {
+        
+        IO.sockets.emit('clienteIngrensando');
+        console.log("Ingreso");
+        
+    })
     //Fase 1
     socket.on('add-Informacion', function (data) {
         var connection = mysql.createConnection({

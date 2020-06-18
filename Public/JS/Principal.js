@@ -2,7 +2,7 @@ function cerrarSesion(){
     alertify.confirm('Alerta', '¿Está seguro de cerrar esta sesión?',function(){
         
         sessionStorage.clear();
-        window.location = '../SRP/';    
+        window.location = '../PruebaSRP/';    
         
     }, function() {
         alertify.error('Cancelado');
@@ -14,6 +14,7 @@ if (sessionStorage.getItem('access') == "Admin") {
 }
 else{
     $("#Registro").hide();
+    $("#Grafico").hide();
 }
 
 Inicio(sessionStorage.getItem('access'));

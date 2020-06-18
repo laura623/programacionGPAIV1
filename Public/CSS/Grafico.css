@@ -1,0 +1,25 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+.Contenedor{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.row{
+    margin: 0 auto;
+}
+#form-param {
+	padding: 20px;
+	display: flex;
+}
+
+#form-param .container {
+    flex: 2;
+}
+#form-param .buttons {
+	flex: 1;
+}
+
