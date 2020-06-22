@@ -1,4 +1,12 @@
-  document.addEventListener("DOMContentLoaded", e=>{
+
+/**
+ * @author Code Master
+ * @copyright Code Master 2020 
+ * @file 
+ * @version 1.0.0
+ */
+
+document.addEventListener("DOMContentLoaded", e=>{
       e.preventDefault();
     if (obtenerSesion() == true) {
       Principal();
