@@ -176,11 +176,11 @@ function eliminarRegistrarUsuario(id){
 
 function Modificar(id) {
     sessionStorage.setItem('ForoMod', id)
-    window.location = '/PruebaSRP/NuevaPregunta/';
+    window.location = '/SRP/NuevaPregunta/';
 }
 
 $("#iconChat").click(function () {
-    window.location = '/PruebaSRP/NuevaPregunta/';
+    window.location = '/SRP/NuevaPregunta/';
 })
 
 function Estado(data) {

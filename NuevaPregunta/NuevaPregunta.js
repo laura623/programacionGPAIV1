@@ -1,7 +1,24 @@
-var Socket = io.connect('http://localhost:6677', {'forceNew':true} );
 
+/**
+ * @author Code Master
+ * @copyright Code Master 2020 
+ * @file Para crear nuevas preguntar en el foro
+ * @version 1.0.0
+ */
+
+/**
+ * @description fuerza la conexion con el servidor
+ */
+
+var Socket = io.connect('http://localhost:6677', {'forceNew':true} );
+/**
+ * @namespace Vue 
+ */
 new Vue({
-    el: "#frm-Pregunta",
+    el: "#frm-Pregunta", 
+    /**
+     * @instance
+     */
     data:{
         Pregunta: {
             Titulo: '',
@@ -11,6 +28,13 @@ new Vue({
         }
     },
     methods:{
+
+
+        /**
+         * @function
+         * @name Datos
+         * @description se recolectan las preguntas que hacen los usuarios
+         */
         Datos(){
             fetch(`../Private/Module/Foro/Proceso.php?proceso=BuscquedaModPreguntas&Foro=${sessionStorage.getItem('ForoMod')}`).then(resp => resp.json()).then(resp => {
                 this.Pregunta = resp['msg'][0]
@@ -19,7 +43,12 @@ new Vue({
                 $('#txt-content').Editor('setText',resp['msg'][0].Descripcion )
                 $("#ImagenAMostrar").attr('src',resp['msg'][0].imagen)
             })
-        },
+        }, 
+        /**
+         * @function
+         * @name Publicar
+         * @description nos sirve para la publicaciones de preguntas imagenes o titulos 
+         */
         Publicar(){
             if($.trim(this.Pregunta.Titulo) != ''){
                 this.Pregunta.Descripcion = $('#txt-content').Editor('getText')
@@ -38,7 +67,7 @@ new Vue({
                         sessionStorage.removeItem('ForoMod')
                         sessionStorage.removeItem('Identificador')
                         sessionStorage.setItem('Preguntas', "Si")
-                        window.location = '/PruebaSRP/';
+                        window.location = '/SRP/';
                     }, function(){ 
                         alertify.error('Cancel')
                     });
@@ -48,7 +77,7 @@ new Vue({
                     sessionStorage.removeItem('ForoMod')
                     sessionStorage.removeItem('Identificador')
                     sessionStorage.setItem('Preguntas', "Si")
-                    window.location = '/PruebaSRP/';
+                    window.location = '/SRP/';
                     
                 }
                 
@@ -58,11 +87,17 @@ new Vue({
             }
             
         },
+         /**
+         * @function
+         * @name Cancelar
+         * @description Cierra la pestaña donde estan las preguntas y
+         *  manda a la pagina principal
+         */
         Cancelar(){
             sessionStorage.removeItem('ForoMod')
             sessionStorage.removeItem('Identificador')
             sessionStorage.setItem('Preguntas', "Si")
-            window.location = '/PruebaSRP/';
+            window.location = '/SRP/';
         }
     },
     created: function () {

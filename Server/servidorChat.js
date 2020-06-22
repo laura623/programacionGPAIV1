@@ -1,3 +1,12 @@
+
+
+/**
+ * @author Code Master
+ * @copyright Code Master 2020 
+ * @file la conexion de la base de datos, encapsulamiento y convercion de datos a array
+ * @version 1.0.0
+ */
+
 var Express = require('express'), 
     app = Express(),
     Server = require('http').Server(app),
