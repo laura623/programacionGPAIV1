@@ -54,7 +54,7 @@
 					</div>
 					</div>
 					<a href="#">¿Has olvidado la contraseña?</a>
-					<input type="submit" class="btn" value="Login">
+					<input type="submit" class="btn" value="Iniciar Sesion">
 					<input type="button" value="Crear Cuenta" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
 					
 				</form>
@@ -119,7 +119,7 @@
 										<i class="fas fa-venus-mars"></i>
 									</div>
 									<div class="div">
-										<v-select class="style-chooser" placeholder="Genero" v-model="RegistrarUsuario.Genero" :options="Genero">
+										<v-select class="style-chooser" placeholder="Género" v-model="RegistrarUsuario.Genero" :options="Genero">
 											<template #search="{attributes, events}">
 												<input
 												  class="vs__search"
@@ -208,7 +208,7 @@
 										<i id="password" v-on:click="pass()" data-accion="hide" style="cursor: pointer;" class="fas fa-lock"></i>
 									</div>
 									<div class="div">
-										<h5>Password</h5>
+										<h5>Contraseña</h5>
 										<input id="pass" required minlength="3" maxlength="8" type="password" v-model="RegistrarUsuario.Password" class="input" id="Password">
 									</div>
 								</div>

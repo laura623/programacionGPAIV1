@@ -184,8 +184,9 @@ IO.on('connection', function (socket) {
             
             }
         });
-
-        var query = connection.query('UPDATE perfil_de_usuario SET Usuario=?, Pass=? WHERE perfil_de_usuario.id_Perfil = ?', [data.Usuario, data.Password, data.IdPerfil], function(error, result){
+        console.log(data);
+        
+        var query = connection.query(`UPDATE perfil_de_usuario SET Usuario=?, Pass=? WHERE perfil_de_usuario.id_Perfil = ${data.IdPerfil}`, [data.Usuario, data.Password], function(error, result){
             if(error){
                throw error;
             }else{

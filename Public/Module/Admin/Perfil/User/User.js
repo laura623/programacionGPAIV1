@@ -34,8 +34,8 @@ new Vue({
                 this.User.IdPerfil = sessionStorage.getItem('IdRegistrado');
             }
             
-            console.log(JSON.stringify(this.User)); 
-            Socket.emit('updateAcountUser', JSON.stringify(this.User))
+            console.log(JSON.stringify(this.User));
+            Socket.emit('updateAcountUser', this.User)
             if (sessionStorage.getItem('DocenteID')) {
                 alertify.alert('SRP', 'Proceso de modificacion terminado', function(){ alertify.success('Ok'); });
                 

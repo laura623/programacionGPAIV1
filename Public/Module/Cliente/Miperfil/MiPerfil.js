@@ -109,7 +109,7 @@ var appRegistrarUsuario = new Vue({
     },
     created: function(){
 
-        //this.InicializarElementos();
+        this.InicializarElementos();
     }
     
 });

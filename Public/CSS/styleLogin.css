@@ -5,8 +5,7 @@
 }
 
 body{
-    font-family: 'Poppins', sans-serif;
-	overflow: hidden;
+	font-family: 'Poppins', sans-serif;
 	background-color: blue;
 	
 }
@@ -27,6 +26,7 @@ footer {
 	margin-right: 5%;
 	border-radius: 50px;
 	margin-top: 5%;
+	margin-bottom: 20px;
 	background-color: white;
 	-webkit-box-shadow: 31px 31px 46px 8px rgba(0,0,0,0.75);
 	-moz-box-shadow: 31px 31px 46px 8px rgba(0,0,0,0.75);

@@ -204,26 +204,30 @@ function Estado(data) {
 }
 
 function addComment(estado) {
-    if (sessionStorage.getItem('access') == "Admin") {
-        var Comment = {
-            Id: sessionStorage.getItem('Identificador'),
-            Info: {
-                nickname: "SRP",
-                message: $(estado).find("#text").val()
+    var texto = $("text").val()
+    if ($.trim(texto) != "") {
+        if (sessionStorage.getItem('access') == "Admin") {
+            var Comment = {
+                Id: sessionStorage.getItem('Identificador'),
+                Info: {
+                    nickname: "SRP",
+                    message: $(estado).find("#text").val()
+                }
             }
         }
-    }
-    else{
-        var Comment = {
-            Id: sessionStorage.getItem('Identificador'),
-            Info: {
-                nickname: sessionStorage.getItem('nombre'),
-                message: $(estado).find("#text").val()
+        else{
+            var Comment = {
+                Id: sessionStorage.getItem('Identificador'),
+                Info: {
+                    nickname: sessionStorage.getItem('nombre'),
+                    message: $(estado).find("#text").val()
+                }
             }
         }
+        console.log(JSON.stringify(Comment));
+        Socket.emit('add-Comment', Comment)
     }
-    console.log(JSON.stringify(Comment));
-    Socket.emit('add-Comment', Comment)
+    $("text").val("")
     return false;
 }
 

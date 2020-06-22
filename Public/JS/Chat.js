@@ -3,6 +3,7 @@
  * @copyright Code Master 2020 
  * @version 1.0.0
  */
+console.log(sessionStorage.getItem('id'));
 
 var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
 /**
@@ -123,22 +124,29 @@ function render(data) {
  * le decimo que todo lo que traiga el array de datosque es nombre, texto etc, lo encapsule en una variable msg.
  */
 function addMessage(e) {
-    var message = {
-        nickname: sessionStorage.getItem('nombre'),
-        text: document.getElementById('text').value
-    };
+    var texto = $("#text").val()
 
-    fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGE&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
-        
-    });
-
-    fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=EliminarSMGR&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
-        
-    });
-
-    Socket.emit('add-message', message);
+    if ($.trim(texto) != "") {
+        var message = {
+            nickname: sessionStorage.getItem('nombre'),
+            text: document.getElementById('text').value
+        };
     
-    $("#iconChat").removeClass("msgRecivido");
+        fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGE&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
+            
+        });
+    
+        fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=EliminarSMGR&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
+            
+        });
+    
+        Socket.emit('add-message', message);
+        
+        $("#iconChat").removeClass("msgRecivido");
+
+        
+    }
+    $("#text").val("")
     
     return false;
 }

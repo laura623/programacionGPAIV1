@@ -50,7 +50,9 @@ if (sessionStorage.getItem('Preguntas')) {
     sessionStorage.removeItem('Preguntas')
 }
 else{
-    Inicio(sessionStorage.getItem('access'));
+    setTimeout(function () {
+        Inicio(sessionStorage.getItem('access'))
+    }, 1000);
 }
 
 

@@ -530,7 +530,7 @@ You should have received a copy of the GNU General Public License along with thi
 											"custom":null },
 
 							  'styles'	: { "select":true,
-											"default": "Titulos",
+											"default": "Títulos",
 											"tooltip": "Formato de texto",
 											"commandname": "formatBlock",
 												"custom":null },

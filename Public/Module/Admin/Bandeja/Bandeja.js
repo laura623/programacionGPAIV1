@@ -118,25 +118,30 @@ var appBandejaInsertar = new Vue({
     methods: {
 
         addMessage: function(){
-            var message = {
-                nickname: "SRP",
-                text: document.getElementById('text').value
-            };
-            var Dia_Hora = new Date();
-            var Fecha = `${Dia_Hora.getFullYear()}/${Dia_Hora.getMonth() + 1}/${Dia_Hora.getDate()} ${Dia_Hora.getHours()}:${Dia_Hora.getMinutes()}:${Dia_Hora.getSeconds()}`;
-
-            var Tiempo = {
-                date: Fecha,
-                id: id
-            }
-
-            SocketON.emit('add-message', message);
-            fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGR&RegistrarUsuario=${JSON.stringify(Tiempo)}`).then( resp => resp.json()).then(resp => {
-        
-            });
-            fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=EliminarSMGE&RegistrarUsuario=${id}`).then( resp => resp.json()).then(resp => {
+            var text = $("#text").val()
+            if ($.trim(text) != '') {
+                var message = {
+                    nickname: "SRP",
+                    text: document.getElementById('text').value
+                };
+                var Dia_Hora = new Date();
+                var Fecha = `${Dia_Hora.getFullYear()}/${Dia_Hora.getMonth() + 1}/${Dia_Hora.getDate()} ${Dia_Hora.getHours()}:${Dia_Hora.getMinutes()}:${Dia_Hora.getSeconds()}`;
+    
+                var Tiempo = {
+                    date: Fecha,
+                    id: id
+                }
+    
+                SocketON.emit('add-message', message);
+                fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGR&RegistrarUsuario=${JSON.stringify(Tiempo)}`).then( resp => resp.json()).then(resp => {
+            
+                });
+                fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=EliminarSMGE&RegistrarUsuario=${id}`).then( resp => resp.json()).then(resp => {
+                    
+                });
                 
-            });
+            }
+            $("#text").val("")
         },
         InsertarImagen: function(){
             var archivo = $("#btnArchivo")

@@ -5,7 +5,6 @@
  */
 
 const inputs = document.querySelectorAll(".input");
-
 /**
  * Son animaciones
  */
@@ -53,7 +52,7 @@ function Access() {
 		Usuario : document.getElementById("Usuario").value,
 		Password : document.getElementById("Password").value
 	}
-		
+	
 	console.log(JSON.stringify(Login));
 	
 	fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=recibirDatos&RegistrarUsuario=${JSON.stringify(Login)}`).then( resp=>resp.json() ).then(resp=>{
