@@ -6,7 +6,13 @@
     else if( obtenerSesion() == false){
       Home();
     }
+  //   $("#Mostrar-Sub-Contenidos").hide("fold", "slow");
 
+  //   setTimeout(function () {
+  //     $("#Mostrar-Sub-Contenidos").load(`PUBLIC/Module/Noticias/vista-Noticias.html`, function() {
+      
+  //     }).show("scale", "slow");
+  //   },1500);
   })
 
   function obtenerSesion(){

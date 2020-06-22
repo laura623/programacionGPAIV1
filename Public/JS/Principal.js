@@ -2,7 +2,7 @@ function cerrarSesion(){
     alertify.confirm('Alerta', '¿Está seguro de cerrar esta sesión?',function(){
         
         sessionStorage.clear();
-        window.location = '../SRP/';    
+        window.location = '../PruebaSRP/';    
         
     }, function() {
         alertify.error('Cancelado');
@@ -17,7 +17,17 @@ else{
     $("#Grafico").hide();
 }
 
-Inicio(sessionStorage.getItem('access'));
+if (sessionStorage.getItem('Preguntas')) {
+    $(`#body`).hide("scale", 1000);
+    $(`#body`).load(`Public/Module/Foro/Foro.html`, function () {
+        
+    }).show( "scale", 1000 );
+    sessionStorage.removeItem('Preguntas')
+}
+else{
+    Inicio(sessionStorage.getItem('access'));
+}
+
 
 function Inicio(Acceso) {
     $(`#body`).hide("scale", 1000);

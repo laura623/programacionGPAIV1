@@ -1,3 +1,5 @@
+var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
+
 new Vue({
 
     el:'#frmUser',
@@ -22,23 +24,22 @@ new Vue({
             }
             
             console.log(JSON.stringify(this.User)); 
-            fetch(`Private/Module/Informacion/Personal.php?proceso=recibirDatos&RegistrarUsuario=${JSON.stringify(this.User)}`).then(resp => resp.json()).then( resp => {
-                if (sessionStorage.getItem('DocenteID')) {
-                    alertify.alert('SRP', 'Proceso de modificacion terminado', function(){ alertify.success('Ok'); });
-                    
-                    $("#body").load('Public/Module/Admin/Busqueda/Busqueda.html');
-                } else {
-                    alertify.alert('SRP', 'Cuenta creada', function(){ alertify.success('Ok'); });
-                    $("#Paginador").load(`Public/Module/Admin/Perfil/Personal/Personal.html`, function() {
-
-                    }).show("scale", "slow");
-                }
+            Socket.emit('updateAcountUser', JSON.stringify(this.User))
+            if (sessionStorage.getItem('DocenteID')) {
+                alertify.alert('SRP', 'Proceso de modificacion terminado', function(){ alertify.success('Ok'); });
                 
-                this.EliminarParamertos()
-                $("#Paginacion4").removeClass('activado')
-                $("#Paginacion3").removeClass('activado')
-                $("#Paginacion2").removeClass('activado')
-            });
+                $("#body").load('Public/Module/Admin/Busqueda/Busqueda.html');
+            } else {
+                alertify.alert('SRP', 'Cuenta creada', function(){ alertify.success('Ok'); });
+                $("#Paginador").load(`Public/Module/Admin/Perfil/Personal/Personal.html`, function() {
+
+                }).show("scale", "slow");
+            }
+            
+            this.EliminarParamertos()
+            $("#Paginacion4").removeClass('activado')
+            $("#Paginacion3").removeClass('activado')
+            $("#Paginacion2").removeClass('activado')
         },
         eliminarRegistrarUsuario(){
             fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=eliminarRegistrarUsuario&RegistrarUsuario=${sessionStorage.getItem('IdRegistrado')}`).then(resp => resp.json()).then(resp => {

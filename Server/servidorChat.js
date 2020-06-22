@@ -43,6 +43,63 @@ IO.on('connection', function (socket) {
 
     });
 
+    socket.on('Comentarios', function (data) {
+        MongoClient.connect(url, function (err, client) {
+            const db = client.db(dbName);
+    
+            db.collection(`ComentCollect${data}`).find({}).toArray(function (err,msg) {
+                socket.emit('RecivirComentarios', msg);
+            });
+    
+        });
+    })
+
+    socket.on('add-Comment', function (data) {
+        console.log("Ingrese al server");
+        
+        MongoClient.connect(url, function (err, client) {
+            const db = client.db(dbName);
+            
+            
+            db.collection(`ComentCollect${data.Id}`).insertOne(data.Info);
+
+            db.collection(`ComentCollect${data.Id}`).find({}).toArray(function (err,msg) {
+                IO.sockets.emit('RecivirComentarios', msg);
+                
+            });
+    
+        });
+    })
+
+    socket.on('modPregunta', function (data) {
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'db_profesionales_registro',
+            port: 3306
+        });
+
+        connection.connect(function(error){
+            if(error){
+               throw error;
+            }else{
+               console.log('Conexion correcta.');
+            
+            }
+        });
+
+        var query = connection.query('UPDATE PreguntasForo SET Titulo=?, Descripcion=?, imagen=? WHERE PreguntasForo.idPreguntas = ?', [data.Titulo, data.Descripcion, data.imagen, data.idPreguntas], function(error, result){
+            if(error){
+               throw error;
+            }else{
+                console.log('Insertado Correctamento');
+                                
+            }
+          }
+        );
+    })
+
     socket.on('add-message', function (data) {
         let message = data.text, usuario = data.nickname;
         MongoClient.connect(url, function (err, client) {
@@ -67,6 +124,64 @@ IO.on('connection', function (socket) {
     
 
     });
+
+    socket.on('updateAcountUser', function (data){
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'db_profesionales_registro',
+            port: 3306
+        });
+
+        connection.connect(function(error){
+            if(error){
+               throw error;
+            }else{
+               console.log('Conexion correcta.');
+            
+            }
+        });
+
+        var query = connection.query('UPDATE perfil_de_usuario SET Usuario=?, Pass=? WHERE perfil_de_usuario.id_Perfil = ?', [data.Usuario, data.Password, data.IdPerfil], function(error, result){
+            if(error){
+               throw error;
+            }else{
+                console.log('Insertado Correctamento');
+                                
+            }
+          }
+        );
+    })
+
+    socket.on('addPregunta', function (data) {
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'db_profesionales_registro',
+            port: 3306
+        });
+
+        connection.connect(function(error){
+            if(error){
+               throw error;
+            }else{
+               console.log('Conexion correcta.');
+            
+            }
+        });
+
+        var query = connection.query('INSERT INTO PreguntasForo(Titulo, Descripcion, imagen, Fecha) VALUES (?,?,?,?)', [data.Titulo, data.Descripcion, data.imagen, data.Fecha], function(error, result){
+            if(error){
+               throw error;
+            }else{
+                console.log('Insertado Correctamento');
+                                
+            }
+          }
+        );
+    })
 
     socket.on('add-Academica', function (data) {
         var connection = mysql.createConnection({

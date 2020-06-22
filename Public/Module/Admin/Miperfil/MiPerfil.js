@@ -16,6 +16,9 @@ function Bandeja() {
 function Pdf() {
     window.open(`http://localhost/SRP/imprimir_pdf.php?id=${sessionStorage.getItem('id')}`,'Informacion');
 }
+function Foro() {
+    $("#body").load('Public/Module/Foro/Foro.html');
+}
 
 
 Vue.component('v-select', VueSelect.VueSelect);

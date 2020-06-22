@@ -1,7 +1,7 @@
 var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
 
 Vue.component('v-select', VueSelect.VueSelect);
-new Vue({
+var Academica = new Vue({
 
     el: "#frmAcademica",
     data:{
@@ -294,12 +294,12 @@ new Vue({
         InformacionDB: function (id) {
             fetch(`Private/Module/Informacion/Academica.php?proceso=buscarRegistrarUsuario&RegistrarUsuario=${id}`).then(resp => resp.json()).then( resp => {
                 
-                    this.Informacion = resp.Academica[0];
-                    this.Informacion.accion = 'modificar';
+                    Academica.Informacion = resp.Academica[0];
+                    Academica.Informacion.accion = 'modificar';
                     $('#btn_titulo').removeAttr("required");
 
                     if (resp.Academica[0].Postgrado == "Si") {
-                        this.Postgrado = resp.Postgrado[0];
+                        Academica.Postgrado = resp.Postgrado[0];
                         $("#PostgradoSi").prop("checked", true);
                         $("#Universidad").prop("required", true);
                         $("#Especifique").prop("required", true);
@@ -308,13 +308,13 @@ new Vue({
                     }
                     
                     if (resp.Academica[0].OthersCarreras == "Si") {
-                        this.Carreras = resp.Carrera[0];
+                        Academica.Carreras = resp.Carrera[0];
                         $("#CarreraOtraSi").prop("checked", true);
                         $("#CarreraContent").prop("required", true);
                         $("#btn_carrera").removeAttr("required");
                         $("#ContenedorCarrera").show()
                     }
-                    this.Datos("Carrera");
+                    Academica.Datos("Carrera");
             });
         }
 

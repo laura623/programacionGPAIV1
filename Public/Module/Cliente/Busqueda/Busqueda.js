@@ -24,7 +24,7 @@ var appBuscarRegistrarUsuario = new Vue({
         },
         verificacionEliminacion:function(idRegistrarUsuario){
             var estatus = this;
-            alertify.confirm('Alerta', `Esta seguro de eliminar este registro ${idRegistrarUsuario}`,function(){
+            alertify.confirm('Alerta', `Esta seguro de eliminar este registro`,function(){
                 estatus.eliminarRegistrarUsuario(idRegistrarUsuario);
                 alertify.success('Registro Eliminado');
                 

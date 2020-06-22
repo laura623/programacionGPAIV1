@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="../Public/JS/jquery-1.12.0.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../Public/JS/editor.js"></script>		
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../Public/CSS/editor.css">
+	<link rel="stylesheet" href="style.css">
+	<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#txt-content').Editor();
+
+			// $('#txt-content').Editor('setText', ['<p style="color:black;"> </p>']);
+
+			// $('#btn-enviar').click(function(e){
+			// 	e.preventDefault();
+			// 	$('#txt-content').text($('#txt-content').Editor('getText'));
+			// 	$('#frm-test').submit();				
+			// });
+		});	
+	</script>
+</head>
+<body class="bg-primary">
+	
+	<div class="container">
+		
+		<form v-on:submit.prevent="Publicar" method="GET" id="frm-Pregunta">
+			<div class="Titulo">
+				<label>Titulo: </label>
+				<input required v-model="Pregunta.Titulo" class="form-control" type="text" name="" placeholder="Titulo....." id="">
+				
+			</div>
+
+			<div>
+				<h3>Cuerpo</h3>
+			</div>
+			
+			<div class="form-group">
+				<textarea id="txt-content" placeholder="Escribe...." name="txt-content"></textarea>
+			</div>
+			<input type="button" v-on:click="Cancelar" class="btn btn-default btn-danger" id="btn-Cancelar" value="Cancelar">
+			<input type="submit" class="btn btn-default btn-success" id="btn-enviar" value="Publicar">
+			
+		</form>
+		<img id="ImagenAMostrar" src="" alt="">
+	</div>
+	<!-- CDN Client NodeJS -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+
+	<!-- Vue JS -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<!-- Alertify -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+	<script src="NuevaPregunta.js"></script>
+</body>
+</html>

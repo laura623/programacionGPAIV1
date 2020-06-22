@@ -1,0 +1,129 @@
+.Contenedor{
+    display: grid;
+    overflow-y: scroll;
+    background: rgb(4, 107, 167, 0.2);
+    width: 90%;
+    max-height: 500px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.Tarjeta{
+    border-radius: 10px;
+    width: 60%;
+    padding: 20px;
+    margin: 0px auto;
+    background-color: rgb(163, 159, 159);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}
+
+
+.Pregunta{
+    display: grid;
+    -webkit-box-shadow: -1px 14px 11px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 14px 11px -7px rgba(0,0,0,0.75);
+    box-shadow: -1px 14px 11px -7px rgba(0,0,0,0.75);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.Descripcion img{
+    width: 100%;
+}
+
+.Comentarios{
+    display: grid;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.Tarjeta:hover{
+    cursor: pointer;
+    background-color: rgb(216, 204, 204);
+    transition: .5s;
+}
+
+.derecha{
+    float: left;
+}
+
+.izquierda{
+    float: right;
+}
+
+.Ocultar{
+    display: none;
+}
+
+.botonNew{
+    display: flex;
+    float: right;
+    background-color: rgb(18, 238, 48);
+    border-radius: 30px;
+    width: 50px;
+    padding: 10px;
+    margin: 20px;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #messages{
+    max-height: 200px;
+    overflow-y: scroll;
+}
+  .message{
+    text-align: left;
+    padding: 5px;
+    border-radius: 10px;
+    background: rgb(140, 213, 255);
+    border-color: #aaaaaa;
+    border-width: 1px;
+    border-style: solid;
+    margin-top: 8px;
+  }
+
+  input#btnArchivo{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	width:100%;
+	height:100%;
+	opacity: 0;
+}
+
+input#btn_enviar{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	width:100%;
+	height:100%;
+	opacity: 0;
+}
+div#div_file{
+	position:relative;
+	width:100px;
+    height: 40px;
+	-webkit-border-radius:5px;
+	-webkit-box-shadow:0px 3px 0px #1a71a9;
+}
+.espacio{
+    margin-top: 10px;
+}
+
+.Metodos{
+    margin: 10px;
+}

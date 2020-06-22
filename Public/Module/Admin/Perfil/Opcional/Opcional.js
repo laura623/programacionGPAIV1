@@ -1,7 +1,7 @@
 var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
 
 Vue.component('v-select', VueSelect.VueSelect);
-new Vue({
+var Opcional = new Vue({
 
     el: "#frmOpcional",
     data:{
@@ -26,12 +26,12 @@ new Vue({
 
         Datos: function () {
             fetch(`Private/Module/Informacion/Opcional.php?proceso=traer_para_vselect&RegistrarUsuario=`).then(resp => resp.json()).then( resp => {
-                this.Ciencia = resp.Ciencia;
-                this.Lenguaje = resp.Lenguaje;
-                this.Matematica = resp.Matematica;
-                this.Sociales = resp.Sociales;
-                this.Informatica = resp.Informatica;
-                this.Idiomas = resp.Idiomas;
+                Opcional.Ciencia = resp.Ciencia;
+                Opcional.Lenguaje = resp.Lenguaje;
+                Opcional.Matematica = resp.Matematica;
+                Opcional.Sociales = resp.Sociales;
+                Opcional.Informatica = resp.Informatica;
+                Opcional.Idiomas = resp.Idiomas;
             });
         },
         Retroceder: function () {
@@ -146,37 +146,8 @@ new Vue({
             sessionStorage.removeItem('TituloPrincipal');
             sessionStorage.removeItem('CarreraBlob');
             sessionStorage.removeItem('PostgradoBlob');
-        },
-        BuscarInformacion: function(id){
-            var Capacitado;
-            
-            fetch(`Private/Module/Informacion/Opcional.php?proceso=buscarOpcional&RegistrarUsuario=${id}`).then(resp => resp.json()).then( resp => {
-                Capacitado = resp.Capacitado[0];
-
-                this.Informacion = Capacitado
-                this.Informacion.accion = "modificar"
-                
-                for (let index = 0; index < resp.Reconocimientos.length; index++) {
-                    switch (index) {
-                        case 0:
-                            $("#Reco1").val(resp.Reconocimientos[index].Especifique)
-                            break;
-                        case 1:
-                            $("#Reco2").val(resp.Reconocimientos[index].Especifique)
-                            break;
-                        case 2:
-                            $("#Reco3").val(resp.Reconocimientos[index].Especifique)
-                            break;
-                    
-                        default:
-                            break;
-                    }
-                    
-                }
-            });
-
-            
         }
+        
 
 
     },
@@ -188,7 +159,7 @@ new Vue({
         }
 
         if (sessionStorage.getItem('DocenteID')) {
-            this.BuscarInformacion(sessionStorage.getItem('DocenteID'));
+            BuscarInformacion(sessionStorage.getItem('DocenteID'));
         }
 
         if (sessionStorage.getItem('IdRegistrado') == "User") {
@@ -197,3 +168,41 @@ new Vue({
     }
 
 });
+
+function BuscarInformacion(id){
+    
+    fetch(`Private/Module/Informacion/Opcional.php?proceso=buscarOpcional&RegistrarUsuario=${id}`).then(resp => resp.json()).then( resp => {
+        console.log(resp.Capacitado[0].Ciencia);
+        
+        if (resp.Capacitado[0].Ciencia) {
+            Opcional.Informacion.Ciencia = resp.Capacitado[0].Ciencia
+            Opcional.Informacion.Lenguaje = resp.Capacitado[0].Lenguaje
+            Opcional.Informacion.Matematica = resp.Capacitado[0].Matematica
+            Opcional.Informacion.Sociales = resp.Capacitado[0].Sociales
+            Opcional.Informacion.Informatica = resp.Capacitado[0].Informatica
+            Opcional.Informacion.Idiomas = resp.Capacitado[0].Idiomas
+            
+        }
+        Opcional.Informacion.accion = 'modificar'
+        // Opcional.Informacion = resp.Capacitado[0];
+
+        for (let index = 0; index < resp.Reconocimientos.length; index++) {
+            switch (index) {
+                case 0:
+                    $("#Reco1").val(resp.Reconocimientos[index].Especifique)
+                    break;
+                case 1:
+                    $("#Reco2").val(resp.Reconocimientos[index].Especifique)
+                    break;
+                case 2:
+                    $("#Reco3").val(resp.Reconocimientos[index].Especifique)
+                    break;
+            
+                default:
+                    break;
+            }
+            
+        }
+    });
+    
+}
