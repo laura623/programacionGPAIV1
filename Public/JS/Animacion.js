@@ -1,3 +1,9 @@
+/**
+ * @author Code Master
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
 const inputs = document.querySelectorAll(".input");
 
 function addcl(){

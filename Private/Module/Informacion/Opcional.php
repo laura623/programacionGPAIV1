@@ -1,4 +1,11 @@
 <?php
+/**
+ * @author Code Master
+ * @copyright Code Master 2020 
+ * @version 1.0.0
+ */
+
+
  
     include('../../Config/Config.php');
 
@@ -9,9 +16,14 @@
     if ( isset( $_GET['proceso'] ) && strlen( $_GET['proceso'] ) > 0) {
         $proceso = $_GET['proceso'];
     }
+     /**
+     * @var method $registrarusuario se almacena en la variable registrarusuario lo que retorne el metodo llamado
+     */
 
     $RegistrarUsuario->$proceso($_GET['RegistrarUsuario']);
- 
+ /**
+     * se imprimi en pantalla la respuesta del metodo
+     */
     print_r(json_encode($RegistrarUsuario->respuesta));
 
 
@@ -19,12 +31,20 @@
 
         private $datos = array(), $db;
         public $respuesta = ['msg' => 'correcto'];
+         /**
+         * constructor
+         */
 
         public function __construct($db){
 
             $this->db = $db; 
 
         }
+         /**
+         * se recibe los datos 
+         * @param array $registrarusuario 
+         * pasa a validar datos 
+         */
 
         public function recibirDatos($RegistrarUsuario){
 
@@ -32,6 +52,11 @@
             $this->validar_datos();
 
         }
+         /**
+         * se recibe los datos ya de los usuarios registrados
+         * @param array $registrarusuario 
+         * pasa a validar datos 
+         */
 
         private function validar_datos(){
 
@@ -48,6 +73,11 @@
 
 
         }
+         /**
+         * se almacena los datos ya de los usuarios registrados
+         * @param array $registrarusuario 
+         * pasa a validar datos 
+         */
 
         private function almacenar_RegistrarUsuario(){
 
@@ -68,6 +98,11 @@
             }
 
         }
+         /**
+         * se busca datos de las opciones ingresadas  de los usuarios registrados
+         * @param array $registrarusuario 
+         * pasa a validar datos 
+         */
 
         public function buscarOpcional($valor){
             
@@ -80,6 +115,11 @@
             $Reconocimientos = $this->db->obtener_data();
             return $this->respuesta = ["Capacitado" => $Capacitado, "Reconocimientos" => $Reconocimientos];
         }
+
+         /**
+         * obtiene los datos que nesesitara el vselect 
+         * @return resuesta
+         */
 
         public function traer_para_vselect(){
 
@@ -150,12 +190,20 @@
 
             return $this->respuesta = ['Ciencia'=>["Ciencia" => $imprimirCiencia, "CienciaID" => $imprimirCienciaIDs], 'Lenguaje' => ['Lenguaje' => $imprimirLenguaje, 'LenguajeID' => $imprimirLenguajeIDs], 'Matematica' => ['Matematica' => $imprimirMatematica, 'MatematicaID' => $imprimirMatematicaIDs], 'Sociales' => ['Sociales' => $imprimirSociales, 'SocialesID' => $imprimirSocialesIDs], 'Informatica' => ['Informatica' => $imprimirInformatica, 'InformaticaID' => $imprimirInformaticaIDs], 'Idiomas' => ['Idiomas' => $imprimirIdiomas, 'IdiomasID' => $imprimirIdiomasIDs]];
         }
+        /**
+         * elimina  los datos de los usuarios que se han registrados
+         * @return resuesta
+         */
 
 
         public function eliminarRegistrarUsuario($idRegistrarUsuario=''){
             $this->db->consultas('DELETE FROM registro_historial_empleos WHERE registro_historial_empleos.id_historial = '. $idRegistrarUsuario);
             $this->respuesta['msg'] = 'Registro eliminado correctamente';
         }
+        /**
+         * modifica los datos de los usuarios registrados 
+         * @return resuesta
+         */
 
         public function modificarRegistrarUsuario(){
 

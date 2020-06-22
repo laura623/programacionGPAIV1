@@ -1,7 +1,20 @@
-var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
+/**
+ * @author Code Master
+ * @copyright Code Master 2020 
+ * @version 1.0.0
+ */
 
+var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
+/**
+ *  sockect.on lo utilizo como una funcion para que siempre este activo la funcion data 
+ * al escuchar que viene un addmenssage y recibirlo.
+ */
 Socket.on('messages', function (data) {
     console.log(data[data.length - 1].nickname);
+     /**
+     * y al utilizar esa funcion se la paso a la funcion render que asi le nombramos por
+     * rendarizacion de datos 
+     */
 
     render(data);
 
@@ -22,6 +35,11 @@ $(archivo).change(function () {
             nickname: sessionStorage.getItem('nombre'),
             img: event.target.result
         };
+
+         /**
+     * le decimos lo mismo que en servidorChat pero de forma contraria
+     * aqui el cliente le envia al servidor
+     */
     
         Socket.emit('add-message', message);
         fetch(`Private/Module/RegistroUsuario/Proceso.php?proceso=AgregarSMGE&RegistrarUsuario=${sessionStorage.getItem('id')}`).then( resp => resp.json()).then(resp => {
@@ -47,6 +65,18 @@ function render(data) {
                         <p>${message.text}</p>
                     </div>
                 `);
+                /**
+     * mensaje le digo que me ejecute esto MSGP y con eso yo le digo que es el mensaje que yo envio
+     */
+    /**
+     * el Strong se utiliza para marcar el nombre de la persona que lo envio
+     * y la p que es el mensaje.
+     */
+
+      /**
+                 * y todo esto es como un ciclo for todo esto va estar retornando y almacenando en la variable html
+                 * que es un div con sus respectivas clases que hacen el diseño
+                 */
             } else {
                 return (`
                     <div class="message MSGP">
@@ -75,13 +105,23 @@ function render(data) {
                     </div>
                 `);
             }
+             /**
+             * todo esto tipo json sol mandamos a llamar la variable menssage  o nikname
+             * con la clave. 
+             */
         }
+         /**
+         * y con el MSGO le estoy diciendo que ese mensaje no es mio es de otro
+         * 
+         */
     }).join('   ');
     var div_msg = document.getElementById("messages");
     div_msg.innerHTML = html;
     div_msg.scrollTop = div_msg.scrollHeight;
 }
-
+/**
+ * le decimo que todo lo que traiga el array de datosque es nombre, texto etc, lo encapsule en una variable msg.
+ */
 function addMessage(e) {
     var message = {
         nickname: sessionStorage.getItem('nombre'),

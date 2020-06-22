@@ -1,5 +1,14 @@
-var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
 
+/**
+ * @author Code Master																																				
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
+var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
+/**
+ * Data crea todas las tarjetas o temas a visualizar
+ */
 var Foro = new Vue({
     el:"#Content",
     data:{
@@ -7,7 +16,9 @@ var Foro = new Vue({
     },
     methods:{
         Data:function () {
-            
+            /**
+             * es el html que crea continuamente
+             */
             var html = ''
             fetch(`Private/Module/Foro/Proceso.php?proceso=BuscquedaPreguntas&Foro=`).then(resp => resp.json()).then(resp => {
                 this.Tarjetas = resp['msg']
@@ -69,6 +80,9 @@ var Foro = new Vue({
                 this.EventosClick()
             })
         },
+        /**
+         * despliegas o inicias el tema de discucion donde muestra la caja para comentar
+         */
         EventosClick(){
             let estado = this;
             setTimeout(function () {

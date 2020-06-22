@@ -1,5 +1,13 @@
 <?php
- 
+ /**
+ * @author Code Master
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
+ /**
+  * se incluye la clase DB y se realiza la conexion con la base de datos db_profecional_registro
+  */
     include('../../Config/Config.php');
 
     $RegistrarUsuario = new RegistrarUsuario($conexion);
@@ -9,22 +17,38 @@
     if ( isset( $_GET['proceso'] ) && strlen( $_GET['proceso'] ) > 0) {
         $proceso = $_GET['proceso'];
     }
+    /**
+     * @var method $registrarusuario se almacena en la variable registrarusuario lo que retorne el metodo llamado
+     */
 
     $RegistrarUsuario->$proceso($_GET['RegistrarUsuario']);
+    /**
+     * se imprimi en pantalla la respuesta del metodo
+     */
  
     print_r(json_encode($RegistrarUsuario->respuesta));
 
 
     class RegistrarUsuario{
 
+
+
         private $datos = array(), $db;
         public $respuesta = ['msg' => 'correcto'];
+         /**
+         * constructor
+         */
 
         public function __construct($db){
 
             $this->db = $db; 
 
         }
+          /**
+         * se recibe los datos y se convierte en un json
+         * @param array $registrarusuario 
+         * pasa a validar datos 
+         */
 
         public function recibirDatos($RegistrarUsuario){
 
@@ -32,7 +56,9 @@
             $this->validar_datos();
 
         }
-
+          /**
+         * se validan los datos obtenidos
+         */
         private function validar_datos(){
 
 
@@ -48,6 +74,11 @@
 
 
         }
+
+         /**
+         * se almacenan los usuarios registrados
+         * @return resuesta
+         */
 
         private function almacenar_RegistrarUsuario(){
 
@@ -76,6 +107,12 @@
  
         }
 
+        
+         /**
+         * se buscan la imformacion academica del usuario.
+         * @return resuesta
+         */
+
         public function buscarRegistrarUsuario($valor=''){
             $this->db->consultas('SELECT imformacion_academica.Fecha_Egreso AS Egreso, registro_universidad.universidad AS Universidad, registro_de_carrera.carrera AS Carrera, Nivel_Docente.Nivel_Docente AS NivelDocente, Categoria_Docente.Categoria_Docente AS CategoriaDocente, imformacion_academica.titulo_universitario AS Titulo, imformacion_academica.CUM, imformacion_academica.Postgrado, imformacion_academica.OthersCarreras FROM imformacion_academica, registro_universidad, registro_de_carrera, Nivel_Docente, Categoria_Docente WHERE imformacion_academica.id_universidad = registro_universidad.id_universidad AND imformacion_academica.id_carrera = registro_de_carrera.id_carrera AND imformacion_academica.id_Nivel_Docente = Nivel_Docente.id_Nivel_Docente AND imformacion_academica.Id_Categoria_Docente = Categoria_Docente.id_Categoria_Docente AND imformacion_academica.id_perfil = '. $valor);
 
@@ -90,6 +127,11 @@
             $Carrera = $this->db->obtener_data();
             return $this->respuesta = ["Academica" => $Academica, "Postgrado" => $Postgrado, "Carrera" => $Carrera];
         }
+
+         /**
+         * se buscan los datos que nesesitara el vselect 
+         * @return resuesta
+         */
 
         public function traer_para_vselect(){
 
@@ -140,6 +182,11 @@
 
             return $this->respuesta = ['Universidad'=>["Universidad" => $imprimirUniversidad, "UniversidadID" => $imprimirUniversidadIDs], "CategoriaDocente" => ["Categoria" => $imprimirCateDocente, "CategoriaDocenteId" => $imprimirCateDocenteIDs], "NivelDocente" => ["NivelDocente" => $imprimirNivelDocente, "NivelDocenteId" => $imprimirNivelDocenteIDs], "OthersCarreras" => ["Carrera" => $imprimirOthersCarreras, "CarreraId" => $imprimirOthersCarrerasIDs]];//array de php en v7+
         }
+         /**
+         * se buscan los datos que nesesitara el vselect 
+         * @return resuesta
+         */
+        
 
         public function traer_para_vselect_Carreras ($id = ''){
 
@@ -156,12 +203,20 @@
 
             return $this->respuesta = ['Carrera'=>["Carrera" => $ImprimirCarrera, "CarreraID" => $ImprimirCarreraIDs]];
         }
+         /**
+         * se utiliza para eliminar los datos registrados
+         * @return resuesta
+         */
 
 
         public function eliminarRegistrarUsuario($idRegistrarUsuario=''){
             $this->db->consultas('DELETE FROM registro_cuenta_usuario WHERE registro_cuenta_usuario.id_perfil = '. $idRegistrarUsuario);
             $this->respuesta['msg'] = 'Registro eliminado correctamente';
         }
+         /**
+         * se utiliza para modificar los datos registrados
+         * @return resuesta
+         */
 
         public function modificarRegistrarUsuario(){
 

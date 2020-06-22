@@ -1,3 +1,9 @@
+/**
+ * @author Code Master
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
 $("#Mostrar-Sub-Contenidos").hide("fold", "slow");
   
 $("#Mostrar-Sub-Contenidos").load(`./Public/Module/Noticias/vista-Noticias.html`, function() {
@@ -30,3 +36,6 @@ $( "[class*='navegacion']" ).click(function() {
   
 
 });
+/**
+ * se eligen las funciones que se van a mostrar segun el tipo de usuario que este ingresando
+ */

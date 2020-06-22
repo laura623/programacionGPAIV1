@@ -1,3 +1,12 @@
+/**
+ * @author Code Master																																				
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
+/**
+ * envio de notificaciones
+ */
 console.log('Service Worker Works');
 
 self.addEventListener('push', e => {

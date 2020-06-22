@@ -1,6 +1,14 @@
+/**
+ * @author Code Master																																				
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
 const inputs = document.querySelectorAll(".input");
 
-
+/**
+ * Son animaciones
+ */
 function addcl(){
 	let parent = this.parentNode.parentNode;
 	parent.classList.add("focus");
@@ -19,16 +27,26 @@ inputs.forEach(input => {
 	input.addEventListener("blur", remcl);
 });
 
+/**
+ * es para acceder al sistema o pagina principal
+ */
 document.getElementById("frmLogin").addEventListener("submit", e => {
 	e.preventDefault();
 	Access();
 	
 })
 
+/**
+ * manda  a la pagina de inicio
+ */
+
 function irHome(){
     window.location = '/SRP/';
 }
 
+/**
+ * accedemos  y validamos la cuenta del usuario
+ */
 function Access() {
 	let Login = {
 		accion : 'login',
@@ -77,7 +95,11 @@ function Access() {
 		}
 		else if (resp.cont ==0){
 
+
 			alertify.alert('Error', 'El usuario o contraseña son incorrectos');
 		}
+		/**
+		 * nos manda una alerta donde nos dice el usuario y contraseña son incorrectos 
+		 */
 	});
 }

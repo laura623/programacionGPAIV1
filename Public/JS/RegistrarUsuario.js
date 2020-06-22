@@ -1,5 +1,16 @@
-Vue.component('v-select', VueSelect.VueSelect);
 
+
+/**
+ * @author Code Master
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
+
+Vue.component('v-select', VueSelect.VueSelect);
+/**
+ * todo los campos nuevos que se crean la llenar un nuevo registro.
+ */
 var appRegistrarUsuario = new Vue({
 
     el:'#frmRegistrarUsuario',
@@ -30,6 +41,11 @@ var appRegistrarUsuario = new Vue({
     },
     methods:{
 
+
+         /**
+             * la variable var d nos funciona para guardar la fecha  nueva
+             *  que se esta ingresando
+             */
         guardarRegistrarUsuario:function(){
 
             var d = new Date();
@@ -40,6 +56,10 @@ var appRegistrarUsuario = new Vue({
             var Age = d.getFullYear() - new Date(this.RegistrarUsuario.Fecha).getFullYear();
 
             console.log("Edad del usuario" + Age);
+            /**
+             * el if nos permite identificar si el usuario es mayor de 24 años o mas y si es 
+             * verdadero permite selecionar un genero y un estado civil
+             */
             
 
             if (Age > 24) {
@@ -76,6 +96,9 @@ var appRegistrarUsuario = new Vue({
             else{
                 alertify.alert('Error', 'Debe ser mayor de 24 años');
             }
+             /**
+             * alerta de si es menor de 24 años no puede registrarse como docente 
+             */
 
         },
         generarPassword: function () {
@@ -87,6 +110,9 @@ var appRegistrarUsuario = new Vue({
 		        passGenerado += options[passAleatorio];
                 
             }
+             /**
+             * for let index se utiliza para generar una contraseña que tenga 8 caracteres minimo.
+             */
             console.log(passGenerado);
             document.getElementById("pass").value = passGenerado;
         },

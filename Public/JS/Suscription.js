@@ -1,3 +1,10 @@
+
+/**
+ * @author Code Master																																				
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
 var Socket = io.connect('http://localhost:6677');
 const PUBLIC_VAPID_KEY =
   "BJuxZAK2tVrr8RwN3OTELQynIh2xKTb52XHyUBg1iIM4H_DW0Lse9Jwwd8_bRygGZXv5e4yNzh-ch7Eu4_9Reew";

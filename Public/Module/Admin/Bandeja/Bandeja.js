@@ -1,6 +1,12 @@
-
+/**
+ * @author Code Master																																				
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
 var SocketON, id;
-
+/**
+ * se fuerza la conexion en el temporal=io
+ */
 var temporal = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=0`} );
 
 temporal.on('messages', function (data) {
@@ -8,6 +14,9 @@ temporal.on('messages', function (data) {
     appBandeja.Datos();
     
 });
+/**
+ * instancias new Vue se utiliza para declarar que se a utilizado el elemento Vue
+ */
 
 var appBandeja = new Vue({
     el: "#Buscador",
@@ -16,6 +25,8 @@ var appBandeja = new Vue({
         Usuarios :[],
         Id : ''
     },
+
+    
     methods:{
 
             Datos: function () {

@@ -1,3 +1,11 @@
+/**
+ * @author Code Master																																				
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+/**
+ * vistas a cargar con las funciones 
+ */
 function Buscar() {
     $("#body").load('Public/Module/Admin/Busqueda/Busqueda.html');
 }

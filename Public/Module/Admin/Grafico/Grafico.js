@@ -1,3 +1,9 @@
+/**
+ * @author Code Master																																				
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
 var Socket = io.connect('http://localhost:6677', {'forceNew':true, 'query':`id=${sessionStorage.getItem('id')}`} );
 
 Socket.on('clienteIngrensando', function (data) {
@@ -5,7 +11,9 @@ Socket.on('clienteIngrensando', function (data) {
     document.getElementById("grafico").innerHTML="";
     showResults()
 });
-
+/**
+ * se encarga de generar la grafica
+ */
 showResults();
 
 function showResults(){
@@ -13,7 +21,9 @@ function showResults(){
     
     var parametros = []
     var valores = []
-
+/**
+ * trae todo los  valores
+ */
     fetch(`Private/Module/Grafico/Proceso.php?proceso=BuscquedaUso&Grafico=`).then(respuesta => respuesta.json()).then(respuesta =>{
         
         for (let index = 0; index < respuesta.msg.length; index++) {
@@ -46,6 +56,9 @@ function showResults(){
         })  
 
     })
+    /**
+     * darle estilo o enbellezer 
+     */
 
 
 }

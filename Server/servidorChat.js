@@ -7,10 +7,20 @@
  * @version 1.0.0
  */
 
+ /**
+  * se obtiene con un requiered donde se pasan los parametros sucesivamente oteniendo una conexion segura
+  * 
+  */
+
 var Express = require('express'), 
     app = Express(),
     Server = require('http').Server(app),
     IO = require('socket.io')(Server),
+
+      /**
+     * Mandamos a llamar al  mongodb utilizando un requiered donde despues se le llama al mongoclient
+     * y este le dice al cliente que se tiene que conectar a la base de datos.
+     */
     MongoClient = require('mongodb').MongoClient,
     url = 'mongodb://localhost:27017',
     dbName = 'ChatSRP',
@@ -33,6 +43,11 @@ var Express = require('express'),
     
     let pushSubscripton;
 
+    /**
+ * le decimos que me envie la direccion  o parametro para saber si esta conectado
+ * y tu que traes tu id nesesito que te conectes al ChatCollect y con la query que trae los parametros 
+ * la mandamos al servidor y la convertimos a un array  y que la encapsule en la variable MSG.
+ */
 IO.on('connection', function (socket) {
     console.log("El cliente con IP: " + socket.handshake.address+ " se ha conectado...");
     console.log(socket.handshake.query.id); 
@@ -41,6 +56,13 @@ IO.on('connection', function (socket) {
         pushSubscripton = data;
         console.log(pushSubscripton);
     })
+
+    /**
+ * Luego de crear una variable llamada MongoClient.connect la cual hace que se conecte a la base de datos 
+ * la cual contiene dos parametros (error,client) que el parametro error funciona si se encontrara algun error 
+ * al queres conectarse.
+ * y el parametro client resive solo la conexion al no encontrar algun problema.
+ */
 
 
     MongoClient.connect(url, function (err, client) {
@@ -55,6 +77,10 @@ IO.on('connection', function (socket) {
     socket.on('Comentarios', function (data) {
         MongoClient.connect(url, function (err, client) {
             const db = client.db(dbName);
+            /**
+         * En db.collection le estoy diciendo que me convierta todo  a un array y ese array me lo encapsule en la
+         * en msg.
+         */
     
             db.collection(`ComentCollect${data}`).find({}).toArray(function (err,msg) {
                 socket.emit('RecivirComentarios', msg);
@@ -108,6 +134,13 @@ IO.on('connection', function (socket) {
           }
         );
     })
+
+    /**
+ *  En socket.on('add-message' le estoy diciendo tu usuario que te conectaste te voy a escuchar
+ * le pasamos la clave addmensaje al usuario que esta conectado a esta salida todo los mensajes 
+ * pero que mensajes?
+ * todo los mensajes a los usuarios que esten conectados que tienen el mismo id 
+ */
 
     socket.on('add-message', function (data) {
         let message = data.text, usuario = data.nickname;
@@ -345,6 +378,10 @@ IO.on('connection', function (socket) {
     })
     
 });
+
+/**
+ * configuramos el puerto que estara usuando para que se active y corra el servidor
+ */
 
 Server.listen(6677, function () {
     console.log("Servidor esta funcionando en http://localhost:6677");

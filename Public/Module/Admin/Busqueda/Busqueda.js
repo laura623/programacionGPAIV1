@@ -1,3 +1,12 @@
+/**
+ * @author Code Master																																				
+ * @copyright Code Master 2020  
+ * @version 1.0.0
+ */
+
+ /**
+  * se utiliza para busca por diferentes criterios
+  */
 var appBuscarRegistrarUsuario = new Vue({
 
     el:'#frmBusqueda',

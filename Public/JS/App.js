@@ -1,18 +1,20 @@
 
-/**
- * @author Code Master
- * @copyright Code Master 2020 
- * @file 
- * @version 1.0.0
- */
-
 document.addEventListener("DOMContentLoaded", e=>{
       e.preventDefault();
     if (obtenerSesion() == true) {
       Principal();
     }
+
+     /**
+       * mandamos a llamar con la funcion (obtenerSesion) y si el valor es verdadero dirige al html llamado principal.
+     
+       */
     else if( obtenerSesion() == false){
       Home();
+
+      /**
+ * y si el valor es falso manda directamente a la pagina home.
+ */
     }
   //   $("#Mostrar-Sub-Contenidos").hide("fold", "slow");
 
@@ -29,6 +31,7 @@ document.addEventListener("DOMContentLoaded", e=>{
     return (nombreUsuario ===null || nombreUsuario === undefined)?false:true;
     
   }
+  
 
   function Home() {
       console.log("Home");
@@ -36,6 +39,9 @@ document.addEventListener("DOMContentLoaded", e=>{
       
       });
   }
+  /**
+ * con el consoleg.log llamamos a la pagina home donde se ubican todo las secciones de imformacion 
+ */
 
   function Principal() {
     console.log("Principal");
